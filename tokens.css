@@ -1,0 +1,89 @@
+/* ============================================================
+   SPEKTR RACING — DESIGN TOKENS
+   White = form. Black = void. Red = ignition. Grey = precision.
+   ============================================================ */
+
+@font-face {
+  font-family: "Aviano Future";
+  src: url("assets/fonts/AvianoFuture-Black.ttf") format("truetype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Aviano Future Fast";
+  src: url("assets/fonts/AvianoFuture-BlackFast.ttf") format("truetype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-Medium.ttf") format("truetype");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-ExtraBold.ttf") format("truetype");
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("assets/fonts/Montserrat-Black.ttf") format("truetype");
+  font-weight: 900; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* ---- Colour system ---- */
+  --spektr-black:   #080808;
+  --spektr-red:     #D72B2B;
+  --spektr-white:   #F2F2F2;
+  --spektr-grey-1:  #1A1A1A;
+  --spektr-grey-2:  #2E2E2E;
+  --spektr-grey-3:  #6B6B6B;
+  --spektr-grey-4:  #9E9E9E;
+
+  --red-glow: 215, 43, 43;   /* rgb of red, for shadows/glows */
+
+  /* ---- Type ----
+     Montserrat (caps) for all titles, large and small.
+     Lato for body. Space Mono kept for instrument-panel DATA only. */
+  --font-display: "Montserrat", system-ui, sans-serif;
+  --font-title:   "Montserrat", system-ui, sans-serif;
+  --font-brand:   "Aviano Future", "Montserrat", sans-serif;
+  --font-brand-fast: "Aviano Future Fast", "Aviano Future", sans-serif;
+  --font-body: "Lato", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
+
+  --fs-hero:    clamp(58px, 10vw, 150px);
+  --fs-section: clamp(34px, 5.2vw, 76px);
+  --fs-body:    16px;
+  --fs-label:   11px;
+
+  --track-display: -0.01em;
+  --track-label:   0.22em;
+
+  /* ---- Spacing / layout ---- */
+  --maxw: 1280px;
+  --gutter: clamp(20px, 5vw, 80px);
+  --section-pad: clamp(90px, 11vh, 170px);
+
+  /* ---- Motion ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+* { box-sizing: border-box; }
+
+::selection { background: var(--spektr-red); color: var(--spektr-white); }

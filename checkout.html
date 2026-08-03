@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEKTR RACING — Secure Checkout</title>
+<meta name="description" content="SPEKTR Racing secure checkout. Reject the compromise. Wear Confidence. Ride Fearless.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="checkout.css">
+</head>
+<body class="co">
+
+<div id="loader">
+  <svg class="mark" viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+  <div class="bar"><i></i></div>
+  <div class="pct">000</div>
+</div>
+
+<header class="co-nav">
+  <a class="brand" href="index.html" aria-label="SPEKTR Racing home">
+    <svg viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+    <span class="word">SPEKTR</span>
+  </a>
+  <div class="secure">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    Secure Checkout<span class="detail"> — 256-bit encrypted</span>
+  </div>
+</header>
+
+<div class="co-shell">
+
+  <!-- ============ FORM ============ -->
+  <section class="co-form">
+    <div class="co-intro">
+      <div class="label"><span class="dot">●</span> CHECKOUT</div>
+      <h1>Three steps from fearless.</h1>
+      <p class="tag">Reject the compromise. Wear Confidence. Ride Fearless.</p>
+    </div>
+
+    <div class="steps-bar">
+      <div class="sp active" data-step="1"><span class="n">1</span><span class="t">Information</span></div>
+      <div class="ln"><i></i></div>
+      <div class="sp" data-step="2"><span class="n">2</span><span class="t">Shipping</span></div>
+      <div class="ln"><i></i></div>
+      <div class="sp" data-step="3"><span class="n">3</span><span class="t">Payment</span></div>
+    </div>
+
+    <form id="coForm" novalidate>
+      <!-- STEP 1 -->
+      <div class="panel active" data-panel="1">
+        <h2>WHO'S RIDING</h2>
+        <p class="sub">We'll send your tracking and race intel here — nothing else.</p>
+        <div class="fld" data-req><input type="email" id="email" placeholder=" "><label for="email">Email address</label><span class="msg">Enter a valid email</span></div>
+
+        <div class="blocktitle">Shipping address</div>
+        <div class="row2">
+          <div class="fld" data-req><input type="text" id="fn" placeholder=" "><label for="fn">First name</label><span class="msg">Required</span></div>
+          <div class="fld" data-req><input type="text" id="ln" placeholder=" "><label for="ln">Last name</label><span class="msg">Required</span></div>
+        </div>
+        <div class="fld" data-req><input type="text" id="addr" placeholder=" "><label for="addr">Street address</label><span class="msg">Required</span></div>
+        <div class="fld"><input type="text" id="addr2" placeholder=" "><label for="addr2">Apartment, suite (optional)</label></div>
+        <div class="row3">
+          <div class="fld" data-req><input type="text" id="city" placeholder=" "><label for="city">City</label><span class="msg">Required</span></div>
+          <div class="fld" data-req><input type="text" id="state" placeholder=" "><label for="state">State</label><span class="msg">Required</span></div>
+          <div class="fld" data-req><input type="text" id="zip" placeholder=" "><label for="zip">PIN / ZIP</label><span class="msg">Required</span></div>
+        </div>
+        <div class="fld" data-req><input type="tel" id="phone" placeholder=" "><label for="phone">Phone (for delivery)</label><span class="msg">Required</span></div>
+
+        <div class="panel-nav">
+          <a class="back" href="product.html">← Back to bag</a>
+          <button type="button" class="btn btn-red" data-next><span>Continue to shipping</span><span class="arr">→</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="panel" data-panel="2">
+        <h2>HOW IT REACHES YOU</h2>
+        <p class="sub">Every order is inspected, then shipped insured. Fearlessness starts before you ride.</p>
+        <div class="opt-card sel" data-ship="standard" data-price="0">
+          <span class="radio"></span>
+          <div class="main"><b>Insured Standard</b><span>5–7 business days · fully tracked &amp; insured</span></div>
+          <span class="pr">Free</span>
+        </div>
+        <div class="opt-card" data-ship="express" data-price="40">
+          <span class="radio"></span>
+          <div class="main"><b>Express Grid</b><span>2–3 business days · priority dispatch</span></div>
+          <span class="pr">$40</span>
+        </div>
+        <div class="opt-card" data-ship="white" data-price="120">
+          <span class="radio"></span>
+          <div class="main"><b>White-Glove Fitting</b><span>Hand-delivered &amp; fit-checked · select cities</span></div>
+          <span class="pr">$120</span>
+        </div>
+
+        <div class="panel-nav">
+          <button type="button" class="back" data-back>← Back to information</button>
+          <button type="button" class="btn btn-red" data-next><span>Continue to payment</span><span class="arr">→</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="panel" data-panel="3">
+        <h2>SEAL IT</h2>
+        <p class="sub">Encrypted, never stored. You're buying engineering, not a logo tax.</p>
+        <div class="opt-card sel" data-pay="card">
+          <span class="radio"></span>
+          <div class="main"><b>Credit / Debit Card</b></div>
+          <span class="cardicons"><i></i><i></i><i></i></span>
+        </div>
+        <div style="margin-top:8px">
+          <div class="fld" data-req><input type="text" id="ccnum" placeholder=" " inputmode="numeric"><label for="ccnum">Card number</label><span class="msg">Required</span></div>
+          <div class="fld" data-req><input type="text" id="ccname" placeholder=" "><label for="ccname">Name on card</label><span class="msg">Required</span></div>
+          <div class="row2">
+            <div class="fld" data-req><input type="text" id="ccexp" placeholder=" "><label for="ccexp">Expiry (MM/YY)</label><span class="msg">Required</span></div>
+            <div class="fld" data-req><input type="text" id="cccvc" placeholder=" " inputmode="numeric"><label for="cccvc">CVC</label><span class="msg">Required</span></div>
+          </div>
+        </div>
+        <div class="opt-card" data-pay="upi" style="margin-top:14px">
+          <span class="radio"></span>
+          <div class="main"><b>UPI</b><span>Pay instantly with any UPI app</span></div>
+        </div>
+
+        <div class="panel-nav">
+          <button type="button" class="back" data-back>← Back to shipping</button>
+          <button type="button" class="btn btn-red" id="placeOrder"><span class="arr">→ </span><span>Complete order · <span class="po-total">$2,480</span></span></button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- ============ SUMMARY ============ -->
+  <aside class="co-summary">
+    <div class="sum-head"><h3>Your order</h3><a href="product.html">Edit</a></div>
+    <div class="line">
+      <div class="thumb"><image-slot id="co-item" radius="6" placeholder="Suit"></image-slot><span class="qty">1</span></div>
+      <div class="det"><b>APEX LEATHER SUIT</b><span>EU 50 · Carbon Black</span></div>
+      <span class="pr">$2,480</span>
+    </div>
+
+    <div class="promo">
+      <input type="text" id="promo" placeholder="Promo code">
+      <button type="button" id="applyPromo">Apply</button>
+    </div>
+
+    <div class="totals">
+      <div class="t"><span>Subtotal</span><span id="sub">$2,480</span></div>
+      <div class="t"><span>Shipping</span><span id="ship" class="free">Free</span></div>
+      <div class="t"><span>Duties &amp; taxes</span><span>Included</span></div>
+      <div class="t grand"><span>Total</span><span><span class="cur">USD </span><span id="grand">$2,480</span></span></div>
+    </div>
+
+    <div class="reassure">
+      <p class="creed">We build it like we'd wear it.<br><span class="r">No compromise — not on protection, not on you.</span></p>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> CE-2 / FIA-certified protection in every order</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Free returns &amp; exchanges, always</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Two-year craftsmanship warranty</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Secure, encrypted payment — never stored</li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- ============ CONFIRMATION ============ -->
+<div class="confirm" id="confirm">
+  <div class="inner">
+    <div class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 6L9 17l-5-5"/></svg></div>
+    <div class="label"><span class="dot">●</span> ORDER CONFIRMED</div>
+    <h2>RIDE<br><span class="out">FEARLESS.</span></h2>
+    <p>Your kit is locked in. We build it like we'd wear it — now go earn the apex.</p>
+    <p class="ordno" id="ordno">ORDER #SPKTR—000000</p>
+    <div class="ctas">
+      <a class="btn btn-red" href="index.html"><span>Back to Home</span></a>
+      <a class="btn" href="#"><span>Track your order</span><span class="arr">→</span></a>
+    </div>
+  </div>
+</div>
+
+<div class="fx-scan"></div>
+
+<script src="image-slot.js"></script>
+<script src="core.js"></script>
+<script src="checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEKTR RACING — Shop the Arsenal</title>
+<meta name="description" content="Shop SPEKTR Racing — riding hoodies, jeans, cargos, base liners and balaclavas. Race-grade protection, honest margin.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="shop.css">
+</head>
+<body>
+
+<div id="loader">
+  <svg class="mark" viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+  <div class="bar"><i></i></div>
+  <div class="pct">000</div>
+</div>
+
+<header class="nav">
+  <a class="brand" href="index.html" aria-label="SPEKTR Racing home">
+    <svg viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+    <span class="word">SPEKTR</span>
+  </a>
+  <nav class="links">
+    <a href="index.html#alcoves">The Range</a>
+    <a href="index.html#wild">In The Wild</a>
+    <a href="about.html">About</a>
+    <a href="shop.html" class="active">Shop</a>
+  </nav>
+  <div class="nav-right">
+    <button class="sound-btn" aria-pressed="false" aria-label="Toggle ambient sound">
+      <span class="eq"><i></i><i></i><i></i><i></i></span><span class="txt">Sound Off</span>
+    </button>
+    <a class="nav-cart" href="checkout.html">CART · <span id="cartN">0</span></a>
+  </div>
+</header>
+
+<main>
+<section class="shop-hero">
+  <img class="media" src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=1900&q=80" alt="" onerror="this.classList.add('failed')">
+  <div class="wrap">
+    <div class="eyebrow"><span class="ln"></span>The Arsenal</div>
+    <h1>SHOP THE<br><em>RANGE.</em></h1>
+    <p class="sub">Every layer of the ride, engineered to the same standard. No logo tax. No compromise.</p>
+  </div>
+</section>
+
+<section class="shop-body">
+  <div class="wrap">
+    <div class="shop-bar">
+      <div class="tabs" id="shopTabs"></div>
+      <div class="count"><b id="shopCount">7</b> products</div>
+    </div>
+    <div class="shop-grid" id="shopGrid"></div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div class="f-brand">
+        <svg class="mark" viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+        <p>Race-grade protective gear, born in India. Wear Confidence. Ride Fearless.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <div class="fnav" id="footShop"></div>
+      </div>
+      <div>
+        <h4>Brand</h4>
+        <div class="fnav"><a href="about.html">About</a><a href="about.html#receipts">The Process</a><a href="index.html#wild">Instagram</a><a href="#">Stockists</a></div>
+      </div>
+      <div>
+        <h4>Join the grid</h4>
+        <p style="color:var(--spektr-grey-3);font-size:14px;margin:0 0 16px">Early drops. Race intel. No noise.</p>
+        <form class="news" onsubmit="return false">
+          <input type="email" placeholder="your@email.com" aria-label="Email">
+          <button type="submit" aria-label="Subscribe">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 SPEKTR RACING</span>
+      <span>ENGINEERED IN INDIA · BUILT FOR THE WORLD</span>
+    </div>
+  </div>
+</footer>
+
+<div class="fx-scan"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="image-slot.js"></script>
+<script src="core.js"></script>
+<script src="catalog.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

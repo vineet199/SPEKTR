@@ -1,0 +1,27 @@
+/* ============================================================
+   SPEKTR RACING — SHOP (listing)
+   Reuses .tabs/.tab/.grid-products/.card from home.css.
+   ============================================================ */
+.shop-hero { padding: calc(var(--gutter) + 96px) 0 clamp(40px,6vh,70px); position: relative; overflow: hidden; border-bottom: 1px solid var(--spektr-grey-1); }
+.shop-hero .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .16; filter: grayscale(1) contrast(1.2) brightness(.55); z-index: 0; }
+.shop-hero .media.failed { display: none; }
+.shop-hero::after { content:""; position:absolute; inset:0; z-index:1; background: linear-gradient(180deg, rgba(8,8,8,.4), transparent 40%, var(--spektr-black)); }
+.shop-hero .wrap { position: relative; z-index: 3; }
+.shop-hero .eyebrow { display:flex; align-items:center; gap:14px; font-family: var(--font-title); font-weight:600; font-size:11px; letter-spacing: var(--track-label); text-transform:uppercase; color: var(--spektr-grey-4); margin-bottom: 26px; }
+.shop-hero .eyebrow .ln { width: 42px; height:1px; background: var(--spektr-red); }
+.shop-hero h1 { font-family: var(--font-brand); font-size: clamp(44px,8vw,118px); line-height:.94; }
+.shop-hero h1 em { font-style: normal; color: transparent; -webkit-text-stroke: 1.4px var(--spektr-white); }
+.shop-hero .sub { margin: 30px 0 0; max-width: 520px; color: var(--spektr-grey-4); font-size: clamp(15px,1.2vw,17px); line-height:1.7; }
+
+.shop-body { padding: clamp(40px,6vh,70px) 0 var(--section-pad); }
+.shop-bar { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; margin-bottom: clamp(34px,5vh,50px); }
+.shop-bar .tabs { margin: 0; justify-content: flex-start; }
+.shop-bar .count { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; color: var(--spektr-grey-3); }
+.shop-bar .count b { color: var(--spektr-white); }
+
+.shop-grid { display:grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+@media (max-width: 900px){ .shop-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px){ .shop-grid { grid-template-columns: 1fr; } }
+.shop-grid .card .c-img { aspect-ratio: 1/1; }
+.shop-grid .card.hiding { opacity:0; transform: translateY(12px); }
+.shop-grid .card .c-foot .meta { font-family: var(--font-mono); font-size: 11px; letter-spacing:.1em; color: var(--spektr-grey-4); }

@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SPEKTR RACING — Built for the Limit</title>
+<meta name="description" content="SPEKTR Racing — race-grade protective gear, born in India. Built for serious riders. Wear Confidence. Ride Fearless.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="home.css">
+<link rel="stylesheet" href="bg3d.css">
+</head>
+<body>
+
+<!-- ============ 3D MATERIAL BACKGROUND ============ -->
+<div id="bg3d" aria-hidden="true">
+  <div class="grain"></div>
+  <div class="mat-stage">
+    <div class="mat-obj"><image-slot id="mat-kevlar" shape="rect" placeholder="Kevlar weave macro shot"></image-slot></div>
+    <div class="mat-obj"><image-slot id="mat-armour" shape="rect" placeholder="CE-certified armour piece"></image-slot></div>
+    <div class="mat-obj"><image-slot id="mat-metal" shape="rect" placeholder="Brushed metal hardware"></image-slot></div>
+    <div class="mat-obj"><image-slot id="mat-foam" shape="rect" placeholder="Memory foam padding"></image-slot></div>
+    <div class="mat-obj"><image-slot id="mat-leather" shape="rect" placeholder="High-grade porous leather"></image-slot></div>
+    <div class="mat-obj"><image-slot id="mat-stitch" shape="rect" placeholder="Zoomed-in seamless stitch"></image-slot></div>
+  </div>
+</div>
+
+<!-- ============ LOADER ============ -->
+<div id="loader">
+  <svg class="mark" viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+  <div class="bar"><i></i></div>
+  <div class="pct">000</div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="brand" href="index.html" aria-label="SPEKTR Racing home">
+    <svg viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+    <span class="word">SPEKTR</span>
+  </a>
+  <nav class="links">
+    <a href="#alcoves">The Range</a>
+    <a href="#wild">In The Wild</a>
+    <a href="about.html">About</a>
+    <a href="shop.html">Shop</a>
+  </nav>
+  <div class="nav-right">
+    <button class="sound-btn" aria-pressed="false" aria-label="Toggle ambient sound">
+      <span class="eq"><i></i><i></i><i></i><i></i></span><span class="txt">Sound Off</span>
+    </button>
+    <a class="nav-cart" href="checkout.html">CART · 0</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ S1 — IGNITION HERO ============ -->
+<section class="hero" id="hero" data-screen-label="Hero">
+  <div class="bg">
+    <img class="bg-media" src="assets/home/hero-night-track.jpg" style="object-position:64% 68%" alt="" onerror="this.classList.add('failed')">
+  </div>
+  <canvas id="ignition"></canvas>
+  <div class="led"></div>
+  <div class="wrap inner">
+    <div class="kicker reveal label"><span class="ln"></span><span>SPEKTR RACING — BORN IN BENGALURU</span></div>
+    <h1>
+      <span class="l1 split-line"><span data-hero-l1>BUILT FOR</span></span>
+      <span class="l2 split-line"><span data-hero-l2>THE LIMIT</span></span>
+    </h1>
+    <p class="sub reveal">Race-grade protection, designed for how India actually rides — the empty highway before the city wakes, the breakfast run, the commute you actually want. We built the gear we could never find.</p>
+    <div class="cta-row">
+      <a class="btn" href="#alcoves"><span>Enter The Range</span><span class="arr">→</span></a>
+    </div>
+  </div>
+  <div class="scroll-hint"><div class="line"></div><span class="label">SCROLL</span></div>
+</section>
+
+<!-- ============ S2 — PRODUCT ALCOVES ============ -->
+<section class="alcoves" id="alcoves" data-screen-label="Product Alcoves">
+  <div class="pin">
+    <div class="track">
+
+      <article class="room r1">
+        <div class="room-bg"><img class="bg-media" src="assets/home/alcove-jacket.jpg" style="object-position:30% 35%" alt="" onerror="this.classList.add('failed')"></div>
+        <div class="vig"></div>
+        <div class="room-inner">
+          <div class="r-copy">
+            <div class="idx">01 / 04</div>
+            <div class="cat">// Riding Zipper Hoodie</div>
+            <h3>BOTH<br>WORLDS</h3>
+            <p>A premium casual jacket and a genuinely protective piece of gear in one. Full aramid lining, CE armour in from the first ride. Coffee run or full commit — same jacket.</p>
+            <div class="specs">
+              <div class="s"><b>CE-1</b><span>Armour Included</span></div>
+              <div class="s"><b>KEVLAR&reg;</b><span>Full Lining</span></div>
+              <div class="s"><b>YKK&reg;</b><span>Two-Way Zip</span></div>
+            </div>
+          </div>
+          <div class="r-stage">
+            <span class="r-tag">JKT—01 / ZIPPER SERIES</span>
+            <div class="plinth"></div>
+            <div class="product"><image-slot id="room-jacket" shape="rounded" radius="10" placeholder="Drop zipper hoodie image"></image-slot></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="room r2">
+        <div class="room-bg"><img class="bg-media" src="assets/home/alcove-ducati.jpg" style="object-position:72% 50%" alt="" onerror="this.classList.add('failed')"></div>
+        <div class="vig"></div>
+        <div class="room-inner">
+          <div class="r-copy">
+            <div class="idx">02 / 04</div>
+            <div class="cat">// Riding Pullover Hoodie</div>
+            <h3>RIDE<br>LIGHT</h3>
+            <p>No zip, no fuss, no weight that doesn't earn its place. Full aramid lining and armour when you want it — so you feel the machine, not the gear.</p>
+            <div class="specs">
+              <div class="s"><b>KEVLAR&reg;</b><span>Full Lining</span></div>
+              <div class="s"><b>ARMOUR</b><span>Ready</span></div>
+              <div class="s"><b>880g</b><span>Weight</span></div>
+            </div>
+          </div>
+          <div class="r-stage">
+            <span class="r-tag">PLV—02 / PULLOVER SERIES</span>
+            <div class="plinth"></div>
+            <div class="product"><image-slot id="room-pullover" shape="rounded" radius="10" placeholder="Drop pullover image"></image-slot></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="room r3">
+        <div class="room-bg"><img class="bg-media" src="assets/home/alcove-suit.jpg" style="object-position:70% 28%" alt="" onerror="this.classList.add('failed')"></div>
+        <div class="vig"></div>
+        <div class="room-inner">
+          <div class="r-copy">
+            <div class="idx">03 / 04</div>
+            <div class="cat">// Balaclava</div>
+            <h3>THE QUIET<br>LAYER</h3>
+            <p>Built for Indian conditions — dusty highways, cold morning rides — and fitted for the head that actually exists in India, not the one European charts assume.</p>
+            <div class="specs">
+              <div class="s"><b>FR</b><span>Flame Resist</span></div>
+              <div class="s"><b>38g</b><span>Total Weight</span></div>
+            </div>
+          </div>
+          <div class="r-stage">
+            <span class="r-tag">BLK—03 / CORE SERIES</span>
+            <div class="plinth"></div>
+            <div class="product"><image-slot id="room-bala" shape="rounded" radius="10" placeholder="Drop balaclava image"></image-slot></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="room r4">
+        <div class="room-bg"><img class="bg-media" src="assets/home/alcove-white.jpg" style="object-position:72% 45%" alt="" onerror="this.classList.add('failed')"></div>
+        <div class="vig"></div>
+        <div class="room-inner">
+          <div class="r-copy">
+            <div class="idx">04 / 04</div>
+            <div class="cat">// Base Liner</div>
+            <h3>THE SYSTEM<br>UNDERNEATH</h3>
+            <p>The piece beneath the piece. Most brands cut corners where you can't see them. We don't — seamless, thermo-regulating, built to sit comfortably through hours in the saddle.</p>
+            <div class="specs">
+              <div class="s"><b>0-SEAM</b><span>Construction</span></div>
+              <div class="s"><b>UPF50</b><span>Protection</span></div>
+              <div class="s"><b>AG+</b><span>Anti-Odour</span></div>
+            </div>
+          </div>
+          <div class="r-stage">
+            <span class="r-tag">LIN—04 / CORE SERIES</span>
+            <div class="plinth"></div>
+            <div class="product"><image-slot id="room-liner" shape="rounded" radius="10" placeholder="Drop base liner image"></image-slot></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+    <div class="progress">
+      <span class="pnum">01 / 04</span>
+      <div class="ptrack"><i></i></div>
+      <span class="label">DRAG / SCROLL</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S3 — THE CREED (stacking cards) ============ -->
+<section class="creed-home" id="creed" data-screen-label="The Creed">
+  <div class="creed-pulse" aria-hidden="true"></div>
+  <div class="wrap creed-top">
+    <div class="label reveal"><span class="dot">●</span> THE CREED</div>
+    <h2 class="creed-title reveal">FIVE THINGS WE<br>WILL NEVER TRADE.</h2>
+  </div>
+  <div class="creed-list">
+    <article class="value">
+      <div class="v-bg"><img class="bg-media" src="assets/home/creed-01.jpg" style="object-position:40% 50%" alt="" onerror="this.classList.add('failed')"></div>
+      <div class="v-inner">
+        <span class="v-num" aria-hidden="true">01</span>
+        <span class="v-idx">01 — THE CREED</span>
+        <h2 class="v-head" data-split>BUILT FOR THE ONES<br>WHO DON'T SLOW DOWN.</h2>
+        <p class="v-sub"><span class="rd">SPEKTR</span> was born at a juice stop, not in a boardroom — from riders tired of gear that was never built for them, these roads, or this heat.</p>
+      </div>
+    </article>
+    <article class="value">
+      <div class="v-bg"><img class="bg-media" src="assets/home/creed-02.jpg" style="object-position:35% 50%" alt="" onerror="this.classList.add('failed')"></div>
+      <div class="v-inner">
+        <span class="v-num" aria-hidden="true">02</span>
+        <span class="v-idx">02 — THE CREED</span>
+        <h2 class="v-head" data-split>PROTECTION FIRST.<br>NO LOGO TAX.</h2>
+        <p class="v-sub">Race-grade armour and materials, modular with the gear you already own. Every rupee goes into the product — not a badge.</p>
+      </div>
+    </article>
+    <article class="value">
+      <div class="v-bg"><img class="bg-media" src="assets/home/creed-03.jpg" style="object-position:50% 60%" alt="" onerror="this.classList.add('failed')"></div>
+      <div class="v-inner">
+        <span class="v-num" aria-hidden="true">03</span>
+        <span class="v-idx">03 — THE CREED</span>
+        <h2 class="v-head" data-split>WEAR IT ON THE TRACK.<br>WEAR IT TO BREAKFAST.<br>OWN BOTH.</h2>
+        <p class="v-sub">Because the best gear is the gear you actually wear. Engineered for the ride. Styled for the life around it.</p>
+      </div>
+    </article>
+    <article class="value">
+      <div class="v-bg"><img class="bg-media" src="assets/home/creed-04.jpg" style="object-position:50% 40%" alt="" onerror="this.classList.add('failed')"></div>
+      <div class="v-inner">
+        <span class="v-num" aria-hidden="true">04</span>
+        <span class="v-idx">04 — THE CREED</span>
+        <h2 class="v-head" data-split>YOU DON'T NEED A<br>SUPERBIKE TO BELONG.</h2>
+        <p class="v-sub">The community doesn't sort you by what you ride. You just have to care about the ride. Wear <span class="rd">SPEKTR</span> and you're already part of it.</p>
+      </div>
+    </article>
+    <article class="value">
+      <div class="v-bg"><img class="bg-media" src="assets/home/creed-05.jpg" style="object-position:55% 50%" alt="" onerror="this.classList.add('failed')"></div>
+      <div class="v-inner">
+        <span class="v-num" aria-hidden="true">05</span>
+        <span class="v-idx">05 — THE CREED</span>
+        <h2 class="v-head" data-split>THE RACE NEVER STOPS.<br>NEITHER DO WE.</h2>
+        <p class="v-sub">From the drawing board to the open road, we are obsessed — relentlessly, unapologetically — with getting it right. Every. Single. Time.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ S3.6 — 360 INSPECTION (scroll image sequence) ============ -->
+<section class="show360" id="reveal360" data-screen-label="360 Inspection">
+  <div class="s360-pin">
+    <div class="s360-media">
+      <img class="s360-frame" data-f="1" src="assets/home/sequence/frame-001.webp" alt="Product, top-down view" fetchpriority="low">
+      <img class="s360-frame" data-f="2" src="assets/home/sequence/frame-002.webp" alt="" aria-hidden="true">
+      <img class="s360-frame" data-f="3" src="assets/home/sequence/frame-003.webp" alt="" aria-hidden="true">
+      <img class="s360-frame" data-f="4" src="assets/home/sequence/frame-004.webp" alt="" aria-hidden="true">
+      <img class="s360-frame" data-f="5" src="assets/home/sequence/frame-005.webp" alt="" aria-hidden="true">
+      <img class="s360-frame" data-f="6" src="assets/home/sequence/frame-006.webp" alt="" aria-hidden="true">
+      <img class="s360-frame" data-f="7" src="assets/home/sequence/frame-007.webp" alt="" aria-hidden="true">
+    </div>
+    <div class="s360-vig" aria-hidden="true"></div>
+    <div class="s360-ui">
+      <div class="s360-top">
+        <div class="label reveal"><span class="dot">●</span> 360° INSPECTION</div>
+        <div class="s360-readout"><span class="rd-cur">01</span><span class="rd-sep">/</span><span class="rd-tot">07</span></div>
+      </div>
+      <div class="s360-foot">
+        <h2 class="s360-title reveal">INSPECTED FROM<br>EVERY ANGLE.</h2>
+        <span class="s360-hint reveal">SCROLL TO ROTATE</span>
+      </div>
+    </div>
+    <div class="s360-bar" aria-hidden="true"><i></i></div>
+  </div>
+</section>
+
+<!-- ============ S3.5 — THE STANDARD ============ -->
+<section class="standard" id="standard" data-screen-label="The Standard">
+  <div class="std-bg"><img class="bg-media" src="assets/home/standard.jpg" style="object-position:70% 45%" alt="" onerror="this.classList.add('failed')"></div>
+  <div class="wrap">
+    <div class="std-head">
+      <div class="label reveal"><span class="dot">●</span> THE STANDARD</div>
+      <h2 class="reveal">PROOF, NOT<br>PROMISES.</h2>
+      <p class="reveal">Confidence isn't a slogan. It's the spec, the fit and the honesty — built into the product, not printed on a label.</p>
+    </div>
+    <div class="std-grid">
+      <div class="std reveal"><b>CE-1</b><span>Armour included</span><p>Real CE Level 1 armour in the zipper hoodie — in from the first ride.</p></div>
+      <div class="std reveal"><b>KEVLAR&reg;</b><span>Full aramid lining</span><p>Abrasion protection sleeve to hem, not just a logo on the chest.</p></div>
+      <div class="std reveal"><b>INDIA</b><span>Bodies, not charts</span><p>Sizing, cut and armour placement built for the rider who actually exists here.</p></div>
+      <div class="std reveal"><b>0%</b><span>Logo tax</span><p>Every rupee goes into materials and R&amp;D. None into a badge.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S4 — THE RANGE ============ -->
+<section class="range" id="range" data-screen-label="The Range">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="reveal">THE RANGE</h2>
+      <p class="sub reveal">Engineered for every layer of the race. Every one obsessed over.</p>
+    </div>
+    <div class="tabs reveal" id="rangeTabs"></div>
+    <div class="grid-products" id="rangeGrid"></div>
+  </div>
+</section>
+
+<!-- ============ S5 — WORN & PROVEN ============ -->
+<section class="proven" id="proven" data-screen-label="Worn and Proven">
+  <div class="wrap">
+    <div class="head">
+      <div class="label reveal"><span class="dot">●</span> WORN &amp; PROVEN</div>
+      <h2 class="reveal">TESTIMONY<br>FROM THE SADDLE.</h2>
+    </div>
+  </div>
+  <div class="proven-rail reveal">
+    <div class="proven-track">
+      <!-- review cards injected below -->
+    </div>
+  </div>
+  <p class="proven-foot reveal">Join thousands of riders who refuse to ride in silence.</p>
+</section>
+
+<!-- ============ S6 — IN THE WILD ============ -->
+<section class="wild" id="wild" data-screen-label="In The Wild">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <h2 class="reveal">IN THE WILD</h2>
+      </div>
+      <div class="sub reveal">@SPEKTRRACING ON INSTAGRAM</div>
+    </div>
+    <div class="reels">
+      <!-- reel template repeated; data filled below -->
+    </div>
+  </div>
+</section>
+
+<!-- ============ S7 — SPEAK TO THE PIT WALL ============ -->
+<section class="pitwall" id="contact" data-screen-label="Pit Wall Contact">
+  <div class="wrap">
+    <div class="pit-grid">
+      <div class="pit-left">
+        <div class="label reveal"><span class="dot">●</span> SPEAK TO THE PIT WALL</div>
+        <h2 class="reveal" data-split>WE'RE ALL EARS.</h2>
+        <p class="pit-sub reveal">Ideas. Grievances. Love letters. Rival comparisons. Tell us everything — we actually read this.</p>
+        <form class="pit-form" id="pitForm" novalidate>
+          <div class="pfld reveal" data-req><input type="text" id="pf-name" placeholder=" "><label for="pf-name">Your name</label><span class="pmsg">Tell us who's writing</span></div>
+          <div class="pfld reveal" data-req><input type="email" id="pf-email" placeholder=" "><label for="pf-email">Your email</label><span class="pmsg">Enter a valid email</span></div>
+          <div class="pfld pfld-sel reveal" data-req>
+            <select id="pf-topic">
+              <option value="" disabled selected></option>
+              <option>Product Feedback</option>
+              <option>Website Feedback</option>
+              <option>New Idea</option>
+              <option>Just Saying Hi</option>
+              <option>Other</option>
+            </select>
+            <label for="pf-topic" class="floated">What's this about?</label>
+            <span class="pmsg">Pick a topic</span>
+          </div>
+          <div class="pfld reveal" data-req><textarea id="pf-msg" rows="5" placeholder=" "></textarea><label for="pf-msg">Say it straight.</label><span class="pmsg">Don't be shy</span></div>
+          <div class="pit-submit reveal">
+            <button type="button" class="btn btn-red" id="pitSend"><span>Send It Through</span><span class="arr">→</span></button>
+            <span class="pit-micro">No bots. No auto-replies. A real person reads this.</span>
+          </div>
+        </form>
+      </div>
+      <div class="pit-right reveal">
+        <p class="pit-display">FROM THE TRACK<br>TO YOUR INBOX —<br><span class="rd">DIRECTLY.</span></p>
+        <p class="pit-copy"><span class="rd">SPEKTR</span> is a founder-run brand. When you write to us, you're writing to the people who built this from the ground up. We take every word seriously. Especially the brutal ones.</p>
+      </div>
+    </div>
+    <div class="pit-success" id="pitSuccess" aria-hidden="true">
+      <h2>TRANSMISSION<br>RECEIVED.</h2>
+      <p>We'll be back to you faster than a clean lap.<br><span class="rd">— The SPEKTR Crew</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6 — SPEC TICKER ============ -->
+<section class="ticker" aria-hidden="true" data-screen-label="Spec Ticker">
+  <div class="row">
+    <span class="item"><span class="dot"></span>CE-1 ARMOUR INCLUDED</span>
+    <span class="item"><span class="dot"></span>FULL KEVLAR&reg; ARAMID LINING</span>
+    <span class="item"><span class="dot"></span>MODULAR — FITS YOUR ARMOUR</span>
+    <span class="item"><span class="dot"></span>BUILT FOR INDIAN BODIES</span>
+    <span class="item"><span class="dot"></span>FLAME-RESISTANT KNIT</span>
+    <span class="item"><span class="dot"></span>AG+ ANTI-ODOUR</span>
+    <span class="item"><span class="dot"></span>UPF50 PROTECTION</span>
+    <span class="item"><span class="dot"></span>NO LOGO TAX</span>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ S7 — FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="cols">
+      <div class="f-brand">
+        <svg class="mark" viewBox="0 0 340.95 330.72" aria-hidden="true"><g fill="currentColor"><polygon points="168.97 0 125.7 43.23 0 66.94 15.11 111.57 115.39 149.22 120.2 168.05 16.48 119.24 26.1 149.22 124.32 218.26 168.97 330.72 162.1 118.54 54.95 89.25 166.22 85.77 168.97 0"/><polygon points="178.86 118.55 286 89.26 174.73 85.77 171.99 0 215.26 43.24 340.95 66.94 325.85 111.57 230.29 149.22 171.99 330.72 178.86 118.55"/></g></svg>
+        <p>Race-grade protective gear, born in India. Wear Confidence. Ride Fearless.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <div class="fnav"><a href="product.html?p=basic-hoodie">Basic Hoodie</a><a href="product.html?p=riding-zipper-hoodie">Riding Zipper Hoodie</a><a href="product.html?p=riding-jeans">Riding Jeans</a><a href="shop.html">View all →</a></div>
+      </div>
+      <div>
+        <h4>Brand</h4>
+        <div class="fnav"><a href="about.html">About</a><a href="about.html">The Process</a><a href="#wild">Instagram</a><a href="#">Stockists</a></div>
+      </div>
+      <div>
+        <h4>Join the grid</h4>
+        <p style="color:var(--spektr-grey-3);font-size:14px;margin:0 0 16px">Early drops. Race intel. No noise.</p>
+        <form class="news" onsubmit="return false">
+          <input type="email" placeholder="your@email.com" aria-label="Email">
+          <button type="submit" aria-label="Subscribe">→</button>
+        </form>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 SPEKTR RACING</span>
+      <span>ENGINEERED IN INDIA · BUILT FOR THE WORLD</span>
+    </div>
+  </div>
+</footer>
+
+<!-- atmosphere overlays -->
+<div class="fx-scan"></div>
+
+<!-- ============ SCRIPTS ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script src="image-slot.js"></script>
+<script src="bg3d.js"></script>
+<script src="catalog.js"></script>
+<script>
+/* build THE RANGE from the shared catalog */
+(function(){
+  if (!window.SPEKTR_CATALOG) return;
+  var cat = window.SPEKTR_CATALOG, groups = window.SPEKTR_GROUPS, money = window.SPEKTR_MONEY;
+  function titleCase(s){ return s.toLowerCase().replace(/\b\w/g, function(c){ return c.toUpperCase(); }); }
+  function shorten(s){ return s.length > 64 ? s.slice(0,61).trimEnd()+'…' : s; }
+  function cardMedia(p){
+    var src = window.SPEKTR_CARD_IMG && window.SPEKTR_CARD_IMG(p);
+    return src ? '<img class="c-photo" src="'+src+'" alt="'+titleCase(p.name)+'">'
+               : '<image-slot id="card-'+p.slug+'" radius="0" shape="rect" placeholder="'+titleCase(p.name)+'"></image-slot>';
+  }
+  var tabs = document.getElementById('rangeTabs');
+  if (tabs) tabs.innerHTML = groups.map(function(g,i){
+    return '<button class="tab'+(i===0?' active':'')+'" data-cat="'+g.id+'">'+g.label+'</button>';
+  }).join('');
+  var grid = document.getElementById('rangeGrid');
+  if (grid) grid.innerHTML = cat.map(function(p){
+    return '<a class="card" data-cat="'+p.group+'" href="product.html?p='+p.slug+'">'+
+      '<div class="c-img"><span class="badge">'+p.badge+'</span>'+cardMedia(p)+'</div>'+
+      '<div class="c-body"><h4>'+p.name+'</h4><p class="desc">'+shorten(p.lede)+'</p>'+
+      '<div class="c-foot"><span class="price">'+money(p.price)+'</span><span class="qv">Quick View →</span></div></div>'+
+      '</a>';
+  }).join('');
+})();
+</script>
+<script>
+/* build the 6 Instagram reels */
+(function(){
+  const reels = [
+    {img:"1449965408869-eaa3f722e40d", cap:"On-board. Sector two, full commit."},
+    {img:"1542362567-b07e54358753", cap:"Between rides. Gear that earns its place."},
+    {img:"1614200179396-2bdb77ebf81b", cap:"The riding hoodie, in its element."},
+    {img:"1552820728-8b83bb6b773f", cap:"Night runs. Cold air, warmer laps."},
+    {img:"1605559424843-9e4c228bf1c2", cap:"Detail study — every panel earns its place."},
+    {img:"1503376780353-7e6692767b70", cap:"The commute is just a warm-up lap."}
+  ];
+  const ig = `<svg class="igc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`;
+  const wrap = document.querySelector('.reels');
+  wrap.innerHTML = reels.map(r=>`
+    <a class="reel reveal" href="https://instagram.com/spektrracing" target="_blank" rel="noopener">
+      <img class="media" src="https://images.unsplash.com/photo-${r.img}?w=700&q=70" alt="${r.cap}" loading="lazy" onerror="this.classList.add('failed')">
+      <div class="scan"></div>${ig}
+      <div class="grad"></div>
+      <div class="cap">${r.cap}</div>
+      <div class="over">${ig.replace('igc','ig-big')}<div class="ocap">${r.cap}</div><span class="pill">▶ Watch on Instagram</span></div>
+    </a>`).join('');
+})();
+</script>
+<script>
+/* build the WORN & PROVEN review rail */
+(function(){
+  const reviews = [
+    {body:"The moment I pulled on the jacket, I knew this wasn't off-the-shelf gear. The leather has this density to it — it doesn't creak, it doesn't feel stiff. It actually feels like it was made specifically for my body. Nothing I've worn before comes close to this quality at this price point.", name:"ARJUN M.", tag:"Verified Rider, Pune"},
+    {body:"Everything about it screams premium — from the packaging to the zip pulls to the stitching along the collar. I've owned gear from three other brands and this is the first time I genuinely felt like I was opening something special. SPEKTR clearly gives a damn about the details.", name:"RIYA S.", tag:"Verified Rider, Mumbai"},
+    {body:"Wearing SPEKTR feels different. I can't fully explain it — but when I'm suited up, I ride better. I feel sharper. There's something about the way it looks and fits that just puts you in the right headspace. It's not just gear. It's a whole identity.", name:"KARTHIK V.", tag:"Verified Rider, Chennai"},
+    {body:"The design language is insane. Subtle but aggressive at the same time — the red contrast stitching, the clean lines on the suit. I've had strangers walk up to me at fuel stations asking where I got it from. On the road and off it, this thing turns heads.", name:"SAHIL D.", tag:"Verified Rider, Delhi"},
+    {body:"I took a low-speed spill on a twisty section outside Coorg last month. Got up, dusted off — not a scratch on me. The armour placement is exactly right and you don't feel weighed down by it. I ride knowing I'm protected. I won't ride without SPEKTR now.", name:"PRIYA N.", tag:"Verified Rider, Bangalore"},
+    {body:"I used to skip morning rides because dragging out full gear at 6am felt like too much effort. SPEKTR changed that. I'm out the door in minutes — jacket on, visor down, gone. It's light enough that I wore it through brunch after the ride. Finally, gear that fits my life.", name:"ROHAN K.", tag:"Verified Rider, Hyderabad"}
+  ];
+  const card = r => `
+    <article class="rev">
+      <div class="rev-stars">★★★★★</div>
+      <p class="rev-body">${r.body}</p>
+      <div class="rev-by"><b>${r.name}</b><span>— ${r.tag}</span></div>
+    </article>`;
+  const track = document.querySelector('.proven-track');
+  if (track){ const html = reviews.map(card).join(''); track.innerHTML = html + html; }
+})();
+</script>
+<script src="core.js"></script>
+<script src="home.js"></script>
+<script>
+/* ============ 360 INSPECTION — scroll-scrubbed image sequence ============ */
+(function(){
+  var sec = document.getElementById('reveal360');
+  if (!sec || !window.gsap || !window.ScrollTrigger) return;
+  gsap.registerPlugin(ScrollTrigger);
+
+  var frames = gsap.utils.toArray('#reveal360 .s360-frame');
+  var media  = sec.querySelector('.s360-media');
+  var barFill = sec.querySelector('.s360-bar i');
+  var cur    = sec.querySelector('.rd-cur');
+  if (frames.length < 2) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches || document.body.classList.contains('no-motion');
+  var pad = function(n){ return (n < 10 ? '0' : '') + n; };
+
+  if (reduce){
+    gsap.set(frames, { opacity: 0 });
+    gsap.set(frames[frames.length - 1], { opacity: 1 });
+    cur.textContent = pad(frames.length);
+    if (barFill) barFill.style.width = '100%';
+    return;
+  }
+
+  /* hard cut: only the active frame is shown, no crossfade */
+  for (var k = 0; k < frames.length; k++){ frames[k].style.opacity = (k === 0 ? '1' : '0'); }
+  var active = 0;
+  function showFrame(n){
+    if (n === active) return;
+    frames[active].style.opacity = '0';
+    frames[n].style.opacity = '1';
+    active = n;
+  }
+
+  ScrollTrigger.create({
+    trigger: sec,
+    start: 'top top',
+    end: '+=240%',
+    scrub: true,
+    pin: '.s360-pin',
+    pinType: 'transform',
+    anticipatePin: 1,
+    invalidateOnRefresh: true,
+    onUpdate: function(self){
+      var n = Math.min(frames.length - 1, Math.floor(self.progress * frames.length));
+      showFrame(n);
+      var idx = n + 1;
+      if (cur.textContent !== pad(idx)) cur.textContent = pad(idx);
+      if (barFill) barFill.style.width = (self.progress * 100).toFixed(1) + '%';
+    }
+  });
+
+  /* keep positions correct once frames have decoded */
+  window.addEventListener('load', function(){ setTimeout(function(){ ScrollTrigger.refresh(); }, 200); });
+})();
+</script>
+</body>
+</html>
