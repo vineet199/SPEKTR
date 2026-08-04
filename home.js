@@ -66,8 +66,8 @@
       x: () => -(track.scrollWidth - window.innerWidth),
       ease: 'none',
       scrollTrigger: {
-        trigger: '.alcoves', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth + window.innerHeight),
-        scrub: 1, pin: '.alcoves .pin', pinType: 'transform', anticipatePin: 1, invalidateOnRefresh: true,
+        trigger: '.alcoves', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth - window.innerHeight),
+        scrub: 0.4, pin: '.alcoves .pin', pinType: 'transform', anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: (self) => {
           const prog = self.progress;
           if (pbar) pbar.style.transform = `scaleX(${0.25 + prog*0.75})`, pbar.style.transformOrigin='left', pbar.style.width='100%';
@@ -79,7 +79,7 @@
     // subtle product parallax per room
     rooms.forEach((room) => {
       const prod = room.querySelector('.product');
-      if (prod) gsap.fromTo(prod, { y: 40 }, { y: -40, ease:'none', scrollTrigger: { trigger: '.alcoves', start:'top top', end:()=>'+='+(track.scrollWidth - innerWidth + innerHeight), scrub: 1 } });
+      if (prod) gsap.fromTo(prod, { y: 40 }, { y: -40, ease:'none', scrollTrigger: { trigger: '.alcoves', start:'top top', end:()=>'+='+(track.scrollWidth - innerWidth - innerHeight), scrub: 0.4 } });
     });
   }
 
@@ -212,7 +212,7 @@
 
     // Particle canvas — sits above bg, below hero text (z 4)
     const cv = document.createElement('canvas');
-    cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;opacity:0;';
+    cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;cursor:auto;z-index:4;opacity:0;';
     hero.appendChild(cv);
     const cx = cv.getContext('2d');
 
@@ -372,7 +372,7 @@
     if (!creed) return;
 
     const cv = document.createElement('canvas');
-    cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10;opacity:0;transition:opacity 0.9s ease;';
+    cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;cursor:auto;z-index:10;opacity:0;transition:opacity 0.9s ease;';
     document.body.appendChild(cv);
     const cx = cv.getContext('2d');
     let W = cv.width = innerWidth, H = cv.height = innerHeight;
@@ -455,6 +455,117 @@
     new IntersectionObserver(entries => {
       entries.forEach(e => e.isIntersecting ? start() : stop());
     }, { threshold: 0.05 }).observe(creed);
+  })();
+
+  /* ================================================================
+     FX4 — SPLIT-FLAP SCRAMBLE  (.s360-title)
+     Scroll-driven: chars scramble while the 360° inspection spins,
+     resolving left→right as progress increases. Fully reversible —
+     scrolling back un-resolves chars and restarts the scramble.
+     ================================================================ */
+  (function splitFlap () {
+    if (noMotion()) return;
+    const el = document.querySelector('.s360-title');
+    if (!el || !hasST || !window.gsap) return;
+
+    const CHARS   = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%-+';
+    const SWAP_MS = 80; // ms between random glyph swaps
+
+    // Parse innerHTML preserving <br>, wrap every non-space char in a span
+    const parts = el.innerHTML.split(/<br\s*\/?>/i);
+    el.innerHTML = parts.map((line, li) =>
+      [...line].map(ch =>
+        ch.trim() === ''
+          ? '<span class="sf-sp">&nbsp;</span>'
+          : `<span class="sf-char" data-f="${ch}"> </span>`
+      ).join('') + (li < parts.length - 1 ? '<br>' : '')
+    ).join('');
+
+    const spans    = [...el.querySelectorAll('.sf-char')];
+    const N        = spans.length;
+    const resolved = new Array(N).fill(false);
+    let   rafId = null, lastSwap = 0, active = false;
+
+    el.classList.remove('reveal');
+    el.style.opacity = '0';
+
+    /* ---- scramble RAF loop: randomises every unresolved char ---- */
+    function scrambleLoop (ts) {
+      if (!active) return;
+      if (ts - lastSwap >= SWAP_MS) {
+        lastSwap = ts;
+        spans.forEach((sp, i) => {
+          if (!resolved[i])
+            sp.textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+        });
+      }
+      rafId = requestAnimationFrame(scrambleLoop);
+    }
+
+    function startLoop () {
+      if (active) return;
+      active = true;
+      rafId = requestAnimationFrame(scrambleLoop);
+    }
+
+    function stopLoop () {
+      active = false;
+      cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+
+    function resolveChar (i) {
+      if (resolved[i]) return;
+      resolved[i] = true;
+      spans[i].textContent = spans[i].dataset.f;
+      gsap.fromTo(spans[i],
+        { scaleY: 0.05 },
+        { scaleY: 1, duration: 0.14, ease: 'back.out(3)' }
+      );
+    }
+
+    function unresolveChar (i) {
+      if (!resolved[i]) return;
+      resolved[i] = false;
+      gsap.killTweensOf(spans[i]);
+      gsap.set(spans[i], { scaleY: 1 });
+      spans[i].textContent = CHARS[Math.floor(Math.random() * CHARS.length)];
+    }
+
+    window.addEventListener('spektr:ready', () => {
+      ScrollTrigger.create({
+        trigger : '#reveal360',
+        start   : 'top top',
+        end     : '+=240%',
+        scrub   : true,
+        onEnter     () { el.style.opacity = '1'; startLoop(); },
+        onEnterBack () { el.style.opacity = '1'; startLoop(); },
+        onLeave     () {
+          // all done — finalise every char and stop scrambling
+          stopLoop();
+          spans.forEach((_, i) => resolveChar(i));
+        },
+        onLeaveBack () {
+          // rewound before the section — reset everything
+          stopLoop();
+          el.style.opacity = '0';
+          resolved.fill(false);
+          spans.forEach(sp => {
+            gsap.killTweensOf(sp);
+            gsap.set(sp, { scaleY: 1 });
+            sp.textContent = ' ';
+          });
+        },
+        onUpdate (self) {
+          const p = self.progress;
+          // each char resolves when progress passes its slice
+          spans.forEach((_, i) => {
+            if (p >= (i + 1) / N) resolveChar(i);
+            else                  unresolveChar(i);
+          });
+        },
+      });
+    });
   })();
 
 })();

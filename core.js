@@ -46,19 +46,6 @@
     window.dispatchEvent(new Event('spektr:ready'));
   }
 
-  /* ---------- Custom cursor ---------- */
-  if (window.matchMedia('(pointer:fine)').matches) {
-    const ring = document.createElement('div'); ring.className = 'cursor';
-    const dot = document.createElement('div'); dot.className = 'cursor-dot';
-    document.body.append(ring, dot);
-    let rx = innerWidth/2, ry = innerHeight/2, dx = rx, dy = ry;
-    addEventListener('mousemove', (e) => { dx = e.clientX; dy = e.clientY; dot.style.transform = `translate(${dx}px,${dy}px)`; });
-    (function loop(){ rx += (dx-rx)*0.18; ry += (dy-ry)*0.18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
-    const hot = 'a,button,.reel,.card,.tab,input,.btn,[data-hot]';
-    document.addEventListener('mouseover', (e)=>{ if (e.target.closest(hot)) ring.classList.add('hot'); });
-    document.addEventListener('mouseout', (e)=>{ if (e.target.closest(hot)) ring.classList.remove('hot'); });
-  }
-
   /* ---------- Nav scroll state ---------- */
   const nav = document.querySelector('.nav');
   const onScroll = () => { if (nav) nav.classList.toggle('scrolled', scrollY > 40); };

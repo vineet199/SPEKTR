@@ -271,7 +271,7 @@
 .pit-form { display: flex; flex-direction: column; gap: 30px; }
 .pfld { position: relative; }
 .pfld input, .pfld textarea, .pfld select { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(242,242,242,0.2); color: var(--spektr-white); font-family: var(--font-body); font-size: 16px; padding: 12px 2px 11px; outline: none; border-radius: 0; transition: border-color .3s var(--ease-out); resize: vertical; }
-.pfld select { cursor: none; color: var(--spektr-white); }
+.pfld select { color: var(--spektr-white); }
 .pfld select option { background: var(--spektr-grey-1); color: var(--spektr-white); }
 .pfld input::placeholder, .pfld textarea::placeholder { color: transparent; }
 .pfld label { position: absolute; left: 2px; top: 12px; color: var(--spektr-grey-3); font-family: var(--font-title); font-weight: 600; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; pointer-events: none; transition: all .22s var(--ease-out); }
@@ -412,6 +412,14 @@
 
 .show360 .s360-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .show360 .s360-title { font-family: var(--font-brand); font-size: var(--fs-section); line-height: .94; color: var(--spektr-white); margin: 0; }
+
+/* split-flap scramble chars */
+.sf-char {
+  display: inline-block;
+  transform-origin: center center;
+  will-change: transform;
+}
+.sf-sp  { display: inline-block; }
 .show360 .s360-hint { font-family: var(--font-title); font-weight: 600; font-size: var(--fs-label); letter-spacing: var(--track-label);
   text-transform: uppercase; color: var(--spektr-grey-4); display: inline-flex; align-items: center; gap: 12px; padding-bottom: 6px; }
 .show360 .s360-hint::before { content: ""; width: 34px; height: 1px; background: var(--spektr-red); display: inline-block; }

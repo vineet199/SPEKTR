@@ -32,7 +32,7 @@
 .vswatches { display: flex; gap: 12px; flex-wrap: wrap; }
 .vswatches[hidden] { display: none; }
 .swcolors[hidden] { display: none; }
-.vsw { width: 68px; text-align: center; cursor: none; background: none; border: none; padding: 0; }
+.vsw { width: 68px; text-align: center; background: none; border: none; padding: 0; }
 .vsw .vimg { display: block; aspect-ratio: 1; border-radius: 8px; border: 2px solid var(--spektr-grey-2); overflow: hidden; background: #101010; margin-bottom: 7px; transition: border-color .2s; }
 .vsw .vimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .vsw.sel .vimg { border-color: var(--spektr-red); }
@@ -57,7 +57,7 @@
 .size.sel { background: var(--spektr-red); border-color: var(--spektr-red); color: var(--spektr-white); }
 .size.out { opacity:.35; text-decoration: line-through; pointer-events:none; }
 .swcolors { display:flex; gap:12px; }
-.sw { width:34px; height:34px; border-radius:50%; border:2px solid var(--spektr-grey-2); cursor:none; position:relative; }
+.sw { width:34px; height:34px; border-radius:50%; border:2px solid var(--spektr-grey-2); position:relative; }
 .sw.sel { border-color: var(--spektr-white); }
 .sw[data-c="black"]{ background:#0d0d0d; } .sw[data-c="red"]{ background: var(--spektr-red); } .sw[data-c="white"]{ background:#e8e8e8; }
 
