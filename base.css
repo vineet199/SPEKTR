@@ -215,3 +215,50 @@ body.menu-open .mobile-menu .m-foot { opacity: 1; }
   .reveal { opacity: 1 !important; transform: none !important; }
   * { scroll-behavior: auto !important; }
 }
+
+/* ============================================================
+   SPEKTR HOVER HIGHLIGHT — site-wide, injected by core.js
+   ============================================================ */
+.spektr-hl {
+  display: inline;
+  position: relative;
+  cursor: default;
+  transition:
+    color          0.18s var(--ease-out),
+    text-shadow    0.22s var(--ease-out),
+    letter-spacing 0.24s var(--ease-out);
+}
+@media (hover: hover) {
+  .spektr-hl:hover {
+    color: var(--spektr-red);
+    letter-spacing: 0.08em;
+    text-shadow:
+      0 0 12px rgba(var(--red-glow), 0.85),
+      0 0 32px rgba(var(--red-glow), 0.45),
+       3px 0 0  rgba(0, 200, 230, 0.28),
+      -3px 0 0  rgba(var(--red-glow), 0.28);
+    animation: spektr-flare 0.38s var(--ease-out) forwards;
+  }
+}
+@keyframes spektr-flare {
+  0%  {
+    color: inherit;
+    letter-spacing: inherit;
+    text-shadow: none;
+  }
+  18% {
+    color: var(--spektr-red);
+    letter-spacing: 0.14em;
+    text-shadow:
+      0 0 28px rgba(var(--red-glow), 1),
+      6px 0 0  rgba(0, 200, 230, 0.5),
+     -6px 0 0  rgba(var(--red-glow), 0.5);
+  }
+  100% {
+    color: var(--spektr-red);
+    letter-spacing: 0.08em;
+    text-shadow:
+      0 0 12px rgba(var(--red-glow), 0.75),
+      0 0 28px rgba(var(--red-glow), 0.35);
+  }
+}

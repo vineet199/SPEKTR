@@ -524,7 +524,12 @@
     {body:"Sizing was spot on from the chart. No returns, no exchanges. It just fit. That never happens with riding gear.",                                                                                                  name:"SIDDHARTH N.",tag:"Verified Rider, Lucknow"},
     {body:"The hoodie has replaced every other jacket I own. My wife is furious. I have zero regrets.",                                                                                                                     name:"GIRISH M.",   tag:"Verified Rider, Bangalore"},
     {body:"Wore it through monsoon season — the breathability is real. Never felt clammy, never felt exposed. Just right.",                                                                                                name:"NISHA K.",    tag:"Verified Rider, Kochi"},
-    {body:"SPEKTR is what happens when riders build gear for riders. Every spec decision makes sense when you're actually on the bike.",                                                                                     name:"DEVRAJ S.",   tag:"Verified Rider, Jaipur"}
+    {body:"SPEKTR is what happens when riders build gear for riders. Every spec decision makes sense when you're actually on the bike.",                                                                                     name:"DEVRAJ S.",   tag:"Verified Rider, Jaipur"},
+    {body:"Wore it through monsoon season — the breathability is real. Never felt clammy, never felt exposed. Just right.",                                                                                                name:"NISHA K.",    tag:"Verified Rider, Kochi"},
+    {body:"The hoodie has replaced every other jacket I own. My wife is furious. I have zero regrets.",                                                                                                                     name:"GIRISH M.",   tag:"Verified Rider, Bangalore"},
+    {body:"Sizing was spot on from the chart. No returns, no exchanges. It just fit. That never happens with riding gear.",                                                                                                  name:"SIDDHARTH N.",tag:"Verified Rider, Lucknow"},
+    {body:"The Kevlar lining doesn't add bulk or restrict movement. You genuinely forget it's there — until you need it.",                                                                                                 name:"KAVYA T.",    tag:"Verified Rider, Pune"},
+    {body:"Three months of daily commutes and weekend rides. Not a single quality issue. It only keeps getting better as it breaks in.",                                                                                     name:"AMAN B.",     tag:"Verified Rider, Chandigarh"}
   ];
 
   const stage  = document.getElementById('globeStage');
@@ -537,31 +542,29 @@
   if (!stage) return;
 
   const isMobile = window.innerWidth < 700;
-  const R        = isMobile ? 140 : 229;
+  const R        = isMobile ? 130 : 200;
   const GOLDEN   = Math.PI * (3 - Math.sqrt(5));
   const n        = reviews.length;
-  const cards    = [], thetas = [], phis = [];
+  const cards    = [], thetas = [], phis = [], radii = [], tilts = [];
 
   reviews.forEach((rev, i) => {
     const y     = 1 - (i / (n - 1)) * 2;
+    // Pure Fibonacci sphere distribution — uniform, no jitter
     const theta = Math.acos(Math.max(-1, Math.min(1, y)));
     const phi   = GOLDEN * i;
-    thetas.push(theta); phis.push(phi);
+    const r     = R;
+    const tilt  = 0;
+    thetas.push(theta); phis.push(phi); radii.push(r); tilts.push(tilt);
 
-    // truncate to one line ~50 chars
-    const line  = rev.body.length > 50 ? rev.body.slice(0, 50) + '...' : rev.body;
-
+    const line  = rev.body.length > 48 ? rev.body.slice(0, 48) + '...' : rev.body;
     const card  = document.createElement('article');
     card.className = 'orb-card';
     card.innerHTML =
       '<div class="orb-stars"></div>' +
       '<p class="orb-line">' + line + '</p>' +
       '<div class="orb-name">' + rev.name + '</div>';
-    card.style.setProperty('--phi',   phi   + 'rad');
-    card.style.setProperty('--theta', (theta - Math.PI / 2) + 'rad');
-    card.style.setProperty('--R',     R + 'px');
     card.style.transform =
-      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + R + 'px)';
+      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + r + 'px) rotateZ(' + tilt + 'deg)';
     stage.appendChild(card);
     cards.push(card);
 
@@ -590,13 +593,14 @@
       cards.forEach((card, i) => {
         const p   = phis[i] + angle;
         const t   = thetas[i];
-        const wz  = Math.sin(t) * Math.cos(p); // -1 to 1
-        const dep = (wz + 1) / 2;              // 0 (back) to 1 (front)
+        const r   = radii[i];
+        const wz  = Math.sin(t) * Math.cos(p);
+        const dep = (wz + 1) / 2;
         const hot = hoveredIdx === i;
         card.style.transform =
-          'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + R + 'px)' +
-          (hot ? ' scale(1.15)' : '');
-        card.style.opacity = hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.25).toFixed(3) : (0.2 + dep * 0.8).toFixed(3));
+          'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + r + 'px) rotateZ(' + tilts[i] + 'deg)' +
+          (hot ? ' scale(1.18)' : '');
+        card.style.opacity = hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.22).toFixed(3) : (0.18 + dep * 0.82).toFixed(3));
         card.classList.toggle('orb-hot', hot);
         card.classList.toggle('orb-front', dep > 0.65);
       });
