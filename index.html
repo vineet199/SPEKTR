@@ -304,9 +304,24 @@
       <h2 class="reveal">TESTIMONY<br>FROM THE SADDLE.</h2>
     </div>
   </div>
-  <div class="proven-rail reveal">
-    <div class="proven-track">
-      <!-- review cards injected below -->
+  <div class="proven-body">
+    <!-- LEFT: globe -->
+    <div class="globe-wrap reveal">
+      <div class="globe-scene">
+        <div class="globe-stage" id="globeStage"></div>
+      </div>
+    </div>
+    <!-- RIGHT: detail panel -->
+    <div class="proven-detail" id="provenDetail">
+      <p class="pd-idle">Hover any rider to read their full story.</p>
+      <div class="pd-review" id="pdReview" aria-live="polite">
+        <div class="pd-stars"></div>
+        <blockquote class="pd-body"></blockquote>
+        <div class="pd-by">
+          <b class="pd-name"></b>
+          <span class="pd-tag"></span>
+        </div>
+      </div>
     </div>
   </div>
   <p class="proven-foot reveal">Join thousands of riders who refuse to ride in silence.</p>
@@ -477,24 +492,117 @@
 })();
 </script>
 <script>
-/* build the WORN & PROVEN review rail */
-(function(){
+/* ============ TESTIMONY GLOBE ============ */
+(function () {
   const reviews = [
-    {body:"The moment I pulled on the jacket, I knew this wasn't off-the-shelf gear. The leather has this density to it — it doesn't creak, it doesn't feel stiff. It actually feels like it was made specifically for my body. Nothing I've worn before comes close to this quality at this price point.", name:"ARJUN M.", tag:"Verified Rider, Pune"},
-    {body:"Everything about it screams premium — from the packaging to the zip pulls to the stitching along the collar. I've owned gear from three other brands and this is the first time I genuinely felt like I was opening something special. SPEKTR clearly gives a damn about the details.", name:"RIYA S.", tag:"Verified Rider, Mumbai"},
-    {body:"Wearing SPEKTR feels different. I can't fully explain it — but when I'm suited up, I ride better. I feel sharper. There's something about the way it looks and fits that just puts you in the right headspace. It's not just gear. It's a whole identity.", name:"KARTHIK V.", tag:"Verified Rider, Chennai"},
-    {body:"The design language is insane. Subtle but aggressive at the same time — the red contrast stitching, the clean lines on the suit. I've had strangers walk up to me at fuel stations asking where I got it from. On the road and off it, this thing turns heads.", name:"SAHIL D.", tag:"Verified Rider, Delhi"},
-    {body:"I took a low-speed spill on a twisty section outside Coorg last month. Got up, dusted off — not a scratch on me. The armour placement is exactly right and you don't feel weighed down by it. I ride knowing I'm protected. I won't ride without SPEKTR now.", name:"PRIYA N.", tag:"Verified Rider, Bangalore"},
-    {body:"I used to skip morning rides because dragging out full gear at 6am felt like too much effort. SPEKTR changed that. I'm out the door in minutes — jacket on, visor down, gone. It's light enough that I wore it through brunch after the ride. Finally, gear that fits my life.", name:"ROHAN K.", tag:"Verified Rider, Hyderabad"}
+    {body:"The moment I pulled on the jacket I knew this wasn't off-the-shelf gear. The leather has this density — it doesn't creak, doesn't feel stiff. Nothing I've worn before comes close.",                                name:"ARJUN M.",    tag:"Verified Rider, Pune"},
+    {body:"Everything about it screams premium — the packaging, zip pulls, collar stitching. First time I've genuinely felt like I was opening something special.",                                                          name:"RIYA S.",     tag:"Verified Rider, Mumbai"},
+    {body:"When I'm suited up I ride better. I feel sharper. It's not just gear. It's a whole identity.",                                                                                                                    name:"KARTHIK V.",  tag:"Verified Rider, Chennai"},
+    {body:"The design language is insane — subtle but aggressive. Red contrast stitching, clean lines. Strangers at fuel stations ask where I got it from.",                                                                name:"SAHIL D.",    tag:"Verified Rider, Delhi"},
+    {body:"Took a low-speed spill outside Coorg. Got up, not a scratch. The armour placement is exactly right. I won't ride without SPEKTR now.",                                                                           name:"PRIYA N.",    tag:"Verified Rider, Bangalore"},
+    {body:"I used to skip morning rides because full gear at 6am felt like too much. SPEKTR changed that. Jacket on, visor down, gone.",                                                                                     name:"ROHAN K.",    tag:"Verified Rider, Hyderabad"},
+    {body:"Colleagues thought my hoodie was a fashion jacket. Then I told them about the aramid lining and CE armour. Jaws dropped.",                                                                                        name:"VIKRAM S.",   tag:"Verified Rider, Ahmedabad"},
+    {body:"11 years of riding, every brand tried. SPEKTR is the first time I've felt genuinely protected without feeling like a billboard.",                                                                                 name:"DEEPA R.",    tag:"Verified Rider, Kochi"},
+    {body:"Ordered on Friday, wore through the ghats on Saturday. The fit, the protection, the look — absolutely dialled in.",                                                                                             name:"AAKASH T.",   tag:"Verified Rider, Nashik"},
+    {body:"The balaclava alone changed how I ride in winter. Lightweight, no bulk under the helmet, keeps the cold out.",                                                                                                    name:"MEERA V.",    tag:"Verified Rider, Shimla"},
+    {body:"Customer support replied within hours and sorted my sizing without drama. Gear AND service are premium. Rare combination.",                                                                                        name:"SURESH K.",   tag:"Verified Rider, Coimbatore"},
+    {body:"The base liner is the unsung hero of my kit. Zero seams, perfect temperature regulation, still sharp enough for a cafe stop.",                                                                                    name:"ANJALI P.",   tag:"Verified Rider, Jaipur"},
+    {body:"I ride Bangalore traffic every day. The SPEKTR hoodie handles the chaos and the coffee stop. It's the only jacket I reach for.",                                                                                 name:"RAHUL G.",    tag:"Verified Rider, Bangalore"},
+    {body:"Bought as a gift for my husband. He hasn't taken it off in three weeks. That's probably the best review I can give.",                                                                                             name:"SNEHA M.",    tag:"Verified Rider, Pune"},
+    {body:"The jeans look completely normal off the bike. Nobody knows there's Kevlar running the full length. That's exactly what I wanted.",                                                                               name:"TANVIR A.",   tag:"Verified Rider, Kolkata"},
+    {body:"I've crashed twice in this jacket. Both times I walked away fine. That's not a coincidence — that's engineering.",                                                                                               name:"KARTIK P.",   tag:"Verified Rider, Pune"},
+    {body:"The fit is incredible for Indian riders. Most brands feel designed for someone half a foot taller with a completely different build.",                                                                             name:"DIVYA L.",    tag:"Verified Rider, Mysore"},
+    {body:"Took it on a 10-day ride through Ladakh. Balaclava, liner, jacket — all three worked flawlessly across every temperature range.",                                                                               name:"MANISH T.",   tag:"Verified Rider, Delhi"},
+    {body:"The packaging alone feels like a premium product. But what's inside lives up to it. SPEKTR clearly cares about every touchpoint.",                                                                                name:"POOJA S.",    tag:"Verified Rider, Mumbai"},
+    {body:"My gear used to sit in the cupboard. SPEKTR is the first kit I actually look forward to putting on before a ride.",                                                                                               name:"ARVIND K.",   tag:"Verified Rider, Chennai"},
+    {body:"The riding jeans passed every vibe check on a 600km solo run. No chafing, no overheating, no regret.",                                                                                                           name:"LEELA M.",    tag:"Verified Rider, Coimbatore"},
+    {body:"Finally a brand that treats Indian riders as the primary customer and not an afterthought. SPEKTR gets it.",                                                                                                      name:"FARHAN Q.",   tag:"Verified Rider, Hyderabad"},
+    {body:"I wear the hoodie to work on Monday and to the track on Sunday. Same jacket. Zero compromises. That's engineering done right.",                                                                                   name:"NIKHIL R.",   tag:"Verified Rider, Goa"},
+    {body:"The zipper pulls, the stitching density, the armour pockets — every detail is considered. You can tell this was designed by people who actually ride.",                                                         name:"SHRUTI V.",   tag:"Verified Rider, Nagpur"},
+    {body:"Three months of daily commutes and weekend rides. Not a single quality issue. It only keeps getting better as it breaks in.",                                                                                     name:"AMAN B.",     tag:"Verified Rider, Chandigarh"},
+    {body:"The Kevlar lining doesn't add any bulk or restrict movement. You genuinely forget it's there — until you need it.",                                                                                             name:"KAVYA T.",    tag:"Verified Rider, Pune"},
+    {body:"Sizing was spot on from the chart. No returns, no exchanges. It just fit. That never happens with riding gear.",                                                                                                  name:"SIDDHARTH N.",tag:"Verified Rider, Lucknow"},
+    {body:"The hoodie has replaced every other jacket I own. My wife is furious. I have zero regrets.",                                                                                                                     name:"GIRISH M.",   tag:"Verified Rider, Bangalore"},
+    {body:"Wore it through monsoon season — the breathability is real. Never felt clammy, never felt exposed. Just right.",                                                                                                name:"NISHA K.",    tag:"Verified Rider, Kochi"},
+    {body:"SPEKTR is what happens when riders build gear for riders. Every spec decision makes sense when you're actually on the bike.",                                                                                     name:"DEVRAJ S.",   tag:"Verified Rider, Jaipur"}
   ];
-  const card = r => `
-    <article class="rev">
-      <div class="rev-stars">★★★★★</div>
-      <p class="rev-body">${r.body}</p>
-      <div class="rev-by"><b>${r.name}</b><span>— ${r.tag}</span></div>
-    </article>`;
-  const track = document.querySelector('.proven-track');
-  if (track){ const html = reviews.map(card).join(''); track.innerHTML = html + html; }
+
+  const stage  = document.getElementById('globeStage');
+  const detail = document.getElementById('provenDetail');
+  const pdBody = document.querySelector('.pd-body');
+  const pdName = document.querySelector('.pd-name');
+  const pdTag  = document.querySelector('.pd-tag');
+  const pdRev  = document.getElementById('pdReview');
+  const pdIdle = document.querySelector('.pd-idle');
+  if (!stage) return;
+
+  const isMobile = window.innerWidth < 700;
+  const R        = isMobile ? 140 : 229;
+  const GOLDEN   = Math.PI * (3 - Math.sqrt(5));
+  const n        = reviews.length;
+  const cards    = [], thetas = [], phis = [];
+
+  reviews.forEach((rev, i) => {
+    const y     = 1 - (i / (n - 1)) * 2;
+    const theta = Math.acos(Math.max(-1, Math.min(1, y)));
+    const phi   = GOLDEN * i;
+    thetas.push(theta); phis.push(phi);
+
+    // truncate to one line ~50 chars
+    const line  = rev.body.length > 50 ? rev.body.slice(0, 50) + '...' : rev.body;
+
+    const card  = document.createElement('article');
+    card.className = 'orb-card';
+    card.innerHTML =
+      '<div class="orb-stars"></div>' +
+      '<p class="orb-line">' + line + '</p>' +
+      '<div class="orb-name">' + rev.name + '</div>';
+    card.style.setProperty('--phi',   phi   + 'rad');
+    card.style.setProperty('--theta', (theta - Math.PI / 2) + 'rad');
+    card.style.setProperty('--R',     R + 'px');
+    card.style.transform =
+      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + R + 'px)';
+    stage.appendChild(card);
+    cards.push(card);
+
+    card.addEventListener('mouseenter', () => {
+      hoveredIdx = i;
+      pdBody.textContent = rev.body;
+      pdName.textContent = rev.name;
+      pdTag.textContent  = '— ' + rev.tag;
+      pdIdle.classList.add('pd-idle-hidden');
+      pdRev.classList.add('pd-active');
+    });
+    card.addEventListener('mouseleave', () => {
+      hoveredIdx = -1;
+      pdRev.classList.remove('pd-active');
+      pdIdle.classList.remove('pd-idle-hidden');
+    });
+  });
+
+  let angle = 0, hoveredIdx = -1;
+  const SPEED  = 0.0024;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce) {
+    (function loop() {
+      angle += hoveredIdx >= 0 ? SPEED * 0.06 : SPEED;
+      cards.forEach((card, i) => {
+        const p   = phis[i] + angle;
+        const t   = thetas[i];
+        const wz  = Math.sin(t) * Math.cos(p); // -1 to 1
+        const dep = (wz + 1) / 2;              // 0 (back) to 1 (front)
+        const hot = hoveredIdx === i;
+        card.style.transform =
+          'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + R + 'px)' +
+          (hot ? ' scale(1.15)' : '');
+        card.style.opacity = hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.25).toFixed(3) : (0.2 + dep * 0.8).toFixed(3));
+        card.classList.toggle('orb-hot', hot);
+        card.classList.toggle('orb-front', dep > 0.65);
+      });
+      requestAnimationFrame(loop);
+    })();
+  }
 })();
 </script>
 <script src="core.js"></script>
