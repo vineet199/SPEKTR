@@ -197,4 +197,264 @@
   if (trow) trow.innerHTML += trow.innerHTML;
 
   if (hasST) window.addEventListener('spektr:ready', ()=> setTimeout(()=>ScrollTrigger.refresh(), 400));
+
+  /* ================================================================
+     FX1 — HERO PIXEL DISINTEGRATION  (Hero scrolls out)
+     Samples real pixel colours from the filtered hero bg image.
+     Each particle is coloured from the actual composited frame.
+     Falls back to abstract chips if CORS blocks pixel read.
+     ================================================================ */
+  (function heroDisintegrate () {
+    if (noMotion() || !hasST) return;
+    const hero  = document.querySelector('.hero');
+    const bgImg = hero && hero.querySelector('.bg-media');
+    if (!hero || !bgImg) return;
+
+    // Particle canvas — sits above bg, below hero text (z 4)
+    const cv = document.createElement('canvas');
+    cv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;opacity:0;';
+    hero.appendChild(cv);
+    const cx = cv.getContext('2d');
+
+    const inner   = hero.querySelector('.inner');
+    const bg      = hero.querySelector('.bg');
+    const alcoves = document.querySelector('.alcoves'); // fades in as hero disintegrates
+    let W, H, particles = [], ready = false;
+
+    function buildFromPixels () {
+      // Offscreen canvas: composite the hero exactly as CSS renders it
+      const off = document.createElement('canvas');
+      off.width = W; off.height = H;
+      const ox = off.getContext('2d');
+
+      ox.fillStyle = '#080808';
+      ox.fillRect(0, 0, W, H);
+
+      // Match .hero .bg-media CSS: grayscale(.5) contrast(1.1) brightness(.7), opacity .38
+      ox.filter = 'grayscale(0.5) contrast(1.1) brightness(0.7)';
+      ox.globalAlpha = 0.38;
+      ox.drawImage(bgImg, 0, 0, W, H);
+      ox.filter = 'none'; ox.globalAlpha = 1;
+
+      // Approximate the radial vignette overlay
+      const vg = ox.createRadialGradient(W * .5, H * .5, H * .06, W * .5, H * .5, W * .78);
+      vg.addColorStop(0,   'rgba(8,8,8,0)');
+      vg.addColorStop(0.6, 'rgba(8,8,8,0.38)');
+      vg.addColorStop(1,   'rgba(8,8,8,0.82)');
+      ox.fillStyle = vg; ox.fillRect(0, 0, W, H);
+
+      const STEP = 8;                         // sample every 8 px → ~11 k candidates
+      const data = ox.getImageData(0, 0, W, H).data;
+      const cxC = W / 2, cyC = H / 2;
+
+      for (let y = 0; y < H; y += STEP) {
+        for (let x = 0; x < W; x += STEP) {
+          const i = (y * W + x) * 4;
+          const r = data[i], g = data[i+1], b = data[i+2];
+          if (r + g + b < 20) continue;        // skip near-black void pixels
+          // Velocity: outward from centre + strong upward bias
+          const dx = (x - cxC) / cxC;
+          const dy = (y - cyC) / cyC;
+          const spd = 0.55 + Math.random() * 0.9;
+          particles.push({
+            ox: x, oy: y,
+            vx: dx * W * spd * 0.6 + (Math.random() - 0.5) * W * 0.35,
+            vy: dy * H * spd * 0.35 - (0.45 + Math.random() * 0.85) * H,
+            col: `rgb(${r},${g},${b})`,
+            sz : 5 + Math.random() * 4,        // slightly bigger than step for no gaps
+          });
+        }
+      }
+      ready = true;
+    }
+
+    function buildFallback () {
+      // Abstract dark chips when pixel read is blocked (file:// CORS)
+      const GRAYS = ['#1c1c1c','#252525','#2e2e2e','#393939','#444','#525252'];
+      const REDS  = ['rgba(215,43,43,0.7)'];
+      const cxC = W / 2, cyC = H / 2;
+      const cols = Math.ceil(W / 28), rows = Math.ceil(H / 28);
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const x = (c / cols) * W + (Math.random() - 0.5) * 20;
+          const y = (r / rows) * H + (Math.random() - 0.5) * 20;
+          const dx = (x - cxC) / cxC, dy = (y - cyC) / cyC;
+          const spd = 0.55 + Math.random() * 0.9;
+          const red = Math.random() < 0.1;
+          const pal = red ? REDS : GRAYS;
+          particles.push({
+            ox: x, oy: y,
+            vx: dx * W * spd * 0.6 + (Math.random() - 0.5) * W * 0.35,
+            vy: dy * H * spd * 0.35 - (0.45 + Math.random() * 0.85) * H,
+            col: pal[Math.floor(Math.random() * pal.length)],
+            sz : 3 + Math.random() * 5,
+          });
+        }
+      }
+      ready = true;
+    }
+
+    function init () {
+      W = cv.width = hero.offsetWidth;
+      H = cv.height = hero.offsetHeight;
+      particles = []; ready = false;
+      const run = () => {
+        try { buildFromPixels(); }
+        catch (_) { buildFallback(); } // tainted canvas → abstract fallback
+      };
+      bgImg.complete && bgImg.naturalWidth > 0 ? run() : bgImg.addEventListener('load', run, { once: true });
+    }
+
+    let painting = false;
+
+    function paint (progress) {
+      if (!painting) return;
+      cx.clearRect(0, 0, W, H);
+      if (!ready) return;
+      // 0→15%  freeze-frame swap: canvas fades in, bg fades out
+      const swap = Math.min(1, progress / 0.15);
+      cv.style.opacity           = String(swap);
+      if (bg)    bg.style.opacity    = String(1 - swap);
+      if (inner) inner.style.opacity = Math.max(0, 1 - progress / 0.30).toFixed(3);
+      // 35%→100%  alcoves fade in as particles finish scattering
+      if (alcoves) alcoves.style.opacity =
+        String(Math.min(1, Math.max(0, (progress - 0.35) / 0.65)));
+      if (progress <= 0.05) return;
+      // 15%→100%  particles scatter outward
+      const t  = Math.max(0, (progress - 0.15) / 0.85);
+      const te = t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+      particles.forEach(p => {
+        const alpha = (1 - te) * 0.94;
+        if (alpha < 0.01) return;
+        cx.globalAlpha = alpha;
+        cx.fillStyle   = p.col;
+        cx.fillRect(p.ox + p.vx * te - p.sz / 2, p.oy + p.vy * te - p.sz / 2, p.sz, p.sz);
+      });
+      cx.globalAlpha = 1;
+    }
+
+    function reset () {
+      painting = false;                         // block any lagging scrub onUpdate calls
+      cv.style.opacity = '0'; cx.clearRect(0, 0, W, H);
+      if (bg)      bg.style.opacity      = '1';
+      if (inner)   inner.style.opacity   = '1';
+      if (alcoves) alcoves.style.opacity = '';
+    }
+
+    window.addEventListener('resize', () => { ready = false; init(); }, { passive: true });
+    window.addEventListener('spektr:ready', () => {
+      init();
+      ScrollTrigger.create({
+        trigger    : '.hero',
+        start      : 'top top',
+        end        : '+=100%',   // 1× viewport — alcoves reach top exactly at progress 1
+        pin        : true,
+        pinSpacing : false,
+        scrub      : 0.6,
+        onEnter    ()     { painting = true; },
+        onEnterBack()     { painting = true; },
+        onUpdate   (self) { paint(self.progress); },
+        onLeave    ()     { reset(); },
+        onLeaveBack()     { reset(); },
+      });
+    });
+  })();
+
+  /* ================================================================
+     FX2 — RAIN ON VISOR  (Creed section is in viewport)
+     Fixed canvas toggled by IntersectionObserver. Two layers:
+       • Streaks  — fast diagonal lines (falling rain)
+       • Beads    — slow circular droplets sitting on the glass
+     ================================================================ */
+  (function creedRain () {
+    if (noMotion()) return;
+    const creed = document.querySelector('.creed-home');
+    if (!creed) return;
+
+    const cv = document.createElement('canvas');
+    cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:10;opacity:0;transition:opacity 0.9s ease;';
+    document.body.appendChild(cv);
+    const cx = cv.getContext('2d');
+    let W = cv.width = innerWidth, H = cv.height = innerHeight;
+    let rafId = null, running = false;
+    const streaks = [], beads = [];
+
+    window.addEventListener('resize', () => {
+      W = cv.width = innerWidth; H = cv.height = innerHeight;
+      reset();
+    }, { passive: true });
+
+    function mkStreak (randomY) {
+      return {
+        x    : Math.random() * W * 1.15,
+        y    : randomY ? Math.random() * H : -20 - Math.random() * H * 0.4,
+        len  : 10 + Math.random() * 30,
+        speed: 3.5 + Math.random() * 7,
+        alpha: 0.07 + Math.random() * 0.11,
+        tilt : Math.PI / 2 + (Math.random() - 0.5) * 0.22,  // nearly vertical, slight lean
+      };
+    }
+    function mkBead () {
+      return {
+        x: Math.random() * W,  y: Math.random() * H,
+        r: 1.2 + Math.random() * 2.5,
+        vy: 0.06 + Math.random() * 0.28,
+        alpha: 0.05 + Math.random() * 0.09,
+        wb: Math.random() * Math.PI * 2,   // wobble phase
+        wsp: 0.008 + Math.random() * 0.018,
+      };
+    }
+    function reset () {
+      streaks.length = beads.length = 0;
+      for (let i = 0; i < 80; i++) streaks.push(mkStreak(true));
+      for (let i = 0; i < 30; i++) beads.push(mkBead());
+    }
+    reset();
+
+    function frame () {
+      cx.clearRect(0, 0, W, H);
+
+      streaks.forEach(s => {
+        const dx = Math.cos(s.tilt) * s.len, dy = Math.sin(s.tilt) * s.len;
+        const g = cx.createLinearGradient(s.x, s.y, s.x + dx, s.y + dy);
+        g.addColorStop(0, `rgba(175,210,245,0)`);
+        g.addColorStop(1, `rgba(175,210,245,${s.alpha})`);
+        cx.strokeStyle = g; cx.lineWidth = 0.7;
+        cx.beginPath(); cx.moveTo(s.x, s.y); cx.lineTo(s.x + dx, s.y + dy); cx.stroke();
+        s.x += dx / s.len * s.speed * 0.14;
+        s.y += s.speed;
+        if (s.y > H + 50) Object.assign(s, mkStreak(false));
+      });
+
+      beads.forEach(b => {
+        b.wb += b.wsp;
+        b.y  += b.vy;
+        if (b.y > H + 10) { Object.assign(b, mkBead()); b.y = 0; }
+        const bx = b.x + Math.sin(b.wb) * 1.5;
+        // bead body
+        cx.beginPath(); cx.arc(bx, b.y, b.r, 0, Math.PI * 2);
+        cx.fillStyle = `rgba(195,220,248,${b.alpha})`; cx.fill();
+        // tiny specular highlight
+        cx.beginPath(); cx.arc(bx - b.r * 0.28, b.y - b.r * 0.32, b.r * 0.38, 0, Math.PI * 2);
+        cx.fillStyle = `rgba(255,255,255,${b.alpha * 1.6})`; cx.fill();
+      });
+
+      if (running) rafId = requestAnimationFrame(frame);
+    }
+
+    function start () {
+      if (running) return;
+      running = true; cv.style.opacity = '1';
+      rafId = requestAnimationFrame(frame);
+    }
+    function stop () {
+      running = false; cv.style.opacity = '0';
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    }
+
+    new IntersectionObserver(entries => {
+      entries.forEach(e => e.isIntersecting ? start() : stop());
+    }, { threshold: 0.05 }).observe(creed);
+  })();
+
 })();

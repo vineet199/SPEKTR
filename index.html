@@ -533,7 +533,6 @@
   ];
 
   const stage  = document.getElementById('globeStage');
-  const detail = document.getElementById('provenDetail');
   const pdBody = document.querySelector('.pd-body');
   const pdName = document.querySelector('.pd-name');
   const pdTag  = document.querySelector('.pd-tag');
@@ -542,37 +541,39 @@
   if (!stage) return;
 
   const isMobile = window.innerWidth < 700;
-  const R        = isMobile ? 130 : 200;
-  const GOLDEN   = Math.PI * (3 - Math.sqrt(5));
-  const n        = reviews.length;
-  const cards    = [], thetas = [], phis = [], radii = [], tilts = [];
+  const R      = isMobile ? 130 : 200;
+  const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+  const n      = reviews.length;
+  const cards  = [], thetas = [], phis = [];
+  // Per-card reveal alpha: 0 = hidden, 1 = fully formed
+  const cardAlpha = new Float32Array(n);
 
   reviews.forEach((rev, i) => {
     const y     = 1 - (i / (n - 1)) * 2;
-    // Pure Fibonacci sphere distribution — uniform, no jitter
-    const theta = Math.acos(Math.max(-1, Math.min(1, y)));
+    const theta = Math.acos(Math.max(-1, Math.min(1, y)));  // pure Fibonacci
     const phi   = GOLDEN * i;
-    const r     = R;
-    const tilt  = 0;
-    thetas.push(theta); phis.push(phi); radii.push(r); tilts.push(tilt);
+    thetas.push(theta); phis.push(phi);
 
-    const line  = rev.body.length > 48 ? rev.body.slice(0, 48) + '...' : rev.body;
-    const card  = document.createElement('article');
+    const line = rev.body.length > 48 ? rev.body.slice(0, 48) + '...' : rev.body;
+    const card = document.createElement('article');
     card.className = 'orb-card';
     card.innerHTML =
       '<div class="orb-stars"></div>' +
       '<p class="orb-line">' + line + '</p>' +
       '<div class="orb-name">' + rev.name + '</div>';
+    // Start invisible and scaled-to-zero at their final sphere position
+    card.style.opacity = '0';
     card.style.transform =
-      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + r + 'px) rotateZ(' + tilt + 'deg)';
+      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + R + 'px) scale(0)';
     stage.appendChild(card);
     cards.push(card);
 
     card.addEventListener('mouseenter', () => {
+      if (cardAlpha[i] < 0.85) return;   // ignore unformed cards
       hoveredIdx = i;
       pdBody.textContent = rev.body;
       pdName.textContent = rev.name;
-      pdTag.textContent  = '— ' + rev.tag;
+      pdTag.textContent  = '\u2014 ' + rev.tag;
       pdIdle.classList.add('pd-idle-hidden');
       pdRev.classList.add('pd-active');
     });
@@ -584,29 +585,100 @@
   });
 
   let angle = 0, hoveredIdx = -1;
+  let formed = false, looping = false;
   const SPEED  = 0.0024;
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!reduce) {
+  // Single render pass — updates every card's transform + opacity from current state
+  function render() {
+    cards.forEach((card, i) => {
+      const a = cardAlpha[i];
+      if (a <= 0) { card.style.opacity = '0'; return; }
+      const p   = phis[i] + angle;
+      const t   = thetas[i];
+      const wz  = Math.sin(t) * Math.cos(p);
+      const dep = (wz + 1) / 2;
+      const hot = hoveredIdx === i;
+      const sc  = hot ? Math.min(a, 1) * 1.18 : Math.min(a, 1);
+      card.style.transform =
+        'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + R + 'px) scale(' + sc.toFixed(3) + ')';
+      card.style.opacity = a < 1
+        ? a.toFixed(3)
+        : hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.22).toFixed(3) : (0.18 + dep * 0.82).toFixed(3));
+      card.classList.toggle('orb-hot',   hot);
+      card.classList.toggle('orb-front', dep > 0.65 && a > 0.8);
+    });
+  }
+
+  // Free-spinning rAF loop — takes over once the globe is fully formed
+  function startLoop() {
+    if (looping) return;
+    looping = true;
     (function loop() {
+      if (!formed) { looping = false; return; }
       angle += hoveredIdx >= 0 ? SPEED * 0.06 : SPEED;
-      cards.forEach((card, i) => {
-        const p   = phis[i] + angle;
-        const t   = thetas[i];
-        const r   = radii[i];
-        const wz  = Math.sin(t) * Math.cos(p);
-        const dep = (wz + 1) / 2;
-        const hot = hoveredIdx === i;
-        card.style.transform =
-          'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + r + 'px) rotateZ(' + tilts[i] + 'deg)' +
-          (hot ? ' scale(1.18)' : '');
-        card.style.opacity = hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.22).toFixed(3) : (0.18 + dep * 0.82).toFixed(3));
-        card.classList.toggle('orb-hot', hot);
-        card.classList.toggle('orb-front', dep > 0.65);
-      });
+      render();
       requestAnimationFrame(loop);
     })();
   }
+
+  function completeFormation() {
+    cardAlpha.fill(1);
+    formed = true;
+    render();
+    startLoop();
+  }
+
+  // Reduced-motion: skip scroll theatre, show everything immediately
+  if (reduce) { completeFormation(); return; }
+
+  // No GSAP? Fallback to instant reveal
+  if (!window.gsap || !window.ScrollTrigger) { completeFormation(); return; }
+
+  // Defer until AFTER home.js has pinned the alcoves and called ScrollTrigger.refresh()
+  // at spektr:ready+400ms — otherwise our trigger position is stale (pin spacer not yet added).
+  window.addEventListener('spektr:ready', function () {
+    setTimeout(function () {
+      gsap.registerPlugin(ScrollTrigger);
+
+      ScrollTrigger.create({
+        trigger: '.proven',
+        // Animation window: section rising from below viewport until its top hits viewport top.
+        // All cards finish forming exactly when the section fully fills the screen.
+        start:   'top bottom',
+        end:     'top top',
+        scrub:   0.8,
+        onUpdate: function (self) {
+          if (formed) return;
+          var p = self.progress;
+
+          // Globe rotates 1.5 full turns as the section rises into view
+          angle = p * Math.PI * 3;
+
+          // Cards cascade in across 0→85% of the range so the last card
+          // is fully visible before the section reaches the top of the viewport.
+          for (var i = 0; i < n; i++) {
+            var wStart = (i / (n - 1)) * 0.75;
+            var wEnd   = wStart + 0.18;   // wider window = smoother cascade
+            cardAlpha[i] = Math.min(1, Math.max(0, (p - wStart) / (wEnd - wStart)));
+          }
+
+          render();
+        },
+        onLeave: function () {
+          // Section fully in view and rising past — snap any stragglers
+          completeFormation();
+        },
+        onLeaveBack: function () {
+          // Section dropped back below viewport — reset
+          formed = false;
+          angle  = 0;
+          cardAlpha.fill(0);
+          render();
+        },
+      });
+    }, 550);
+  });
 })();
 </script>
 <script src="core.js"></script>
