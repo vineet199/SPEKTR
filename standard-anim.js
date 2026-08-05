@@ -24,11 +24,7 @@
   sec.appendChild(cv);
   const cx = cv.getContext('2d');
 
-  /* ---- energy lines canvas ---- */
-  const ecv = document.createElement('canvas');
-  ecv.className = 'ast-energy';
-  sec.appendChild(ecv);
-  const ecx = ecv.getContext('2d');
+
 
   /* ---- initial content state ---- */
   gsap.set([label, para, h2], { opacity: 0 });
@@ -50,6 +46,8 @@
   ];
   let parts = [];
 
+  /* pre-group particles by colour so drawParticles can batch-fill */
+  let partsByCol = {};
   function buildParticles () {
     const W = cv.width  = sec.offsetWidth;
     const H = cv.height = sec.offsetHeight;
@@ -63,7 +61,6 @@
       else if (edge === 'B') { sx = Math.random() * W; sy = H + 10 + Math.random() * 80; }
       else if (edge === 'L') { sx = -10 - Math.random() * 80; sy = Math.random() * H; }
       else                   { sx = W + 10 + Math.random() * 80; sy = Math.random() * H; }
-      /* targets spread across the ENTIRE section — no clustering */
       parts.push({
         sx, sy,
         tx  : Math.random() * W,
@@ -72,6 +69,12 @@
         col : PALETTE[Math.floor(Math.random() * PALETTE.length)],
       });
     }
+    /* group by colour for batched draw */
+    partsByCol = {};
+    parts.forEach(pt => {
+      if (!partsByCol[pt.col]) partsByCol[pt.col] = [];
+      partsByCol[pt.col].push(pt);
+    });
   }
 
   function drawParticles (p) {
@@ -79,53 +82,25 @@
     cx.clearRect(0, 0, W, H);
     p = Math.max(0, Math.min(1, p));
     if (p <= 0) return;
-    const ease = p < 0.5 ? 2 * p * p : -1 + (4 - 2 * p) * p;
-    parts.forEach(pt => {
-      cx.fillStyle   = pt.col;
-      cx.globalAlpha = ease * 0.9;        /* semi-transparent — bg image shows through */
-      cx.fillRect(
-        pt.sx + (pt.tx - pt.sx) * ease - pt.sz / 2,
-        pt.sy + (pt.ty - pt.sy) * ease - pt.sz / 2,
-        pt.sz, pt.sz
-      );
+    const ease = p < 0.5 ? 2*p*p : -1 + (4-2*p)*p;
+    /* single globalAlpha, one fill() per colour — 10 state changes vs 280 */
+    cx.globalAlpha = ease * 0.9;
+    Object.entries(partsByCol).forEach(([col, pts]) => {
+      cx.fillStyle = col;
+      cx.beginPath();
+      pts.forEach(pt => {
+        cx.rect(
+          pt.sx + (pt.tx - pt.sx) * ease - pt.sz / 2,
+          pt.sy + (pt.ty - pt.sy) * ease - pt.sz / 2,
+          pt.sz, pt.sz
+        );
+      });
+      cx.fill();
     });
     cx.globalAlpha = 1;
   }
 
-  /* ======= ENERGY LINES ======= */
-  function drawEnergyLines () {
-    const W = ecv.width  = sec.offsetWidth;
-    const H = ecv.height = sec.offsetHeight;
-    ecx.clearRect(0, 0, W, H);
-    const sr = sec.getBoundingClientRect();
-    const centers = cards.map(c => {
-      const r = c.getBoundingClientRect();
-      return { x: r.left - sr.left + r.width / 2, y: r.top - sr.top + r.height / 2 };
-    });
-    if (!centers.length) return;
-    gsap.set(ecv, { opacity: 1 });
-    const segs = [];
-    for (let i = 0; i < centers.length - 1; i++) segs.push([centers[i], centers[i + 1]]);
-    segs.push([centers[0], centers[centers.length - 1]]);
 
-    segs.forEach(([a, b], i) => {
-      const o = { t: 0 };
-      gsap.to(o, {
-        t: 1, duration: 0.38, delay: i * 0.13, ease: 'power2.inOut',
-        onUpdate () {
-          ecx.strokeStyle = '#D72B2B';
-          ecx.shadowColor = '#D72B2B';
-          ecx.shadowBlur  = 10;
-          ecx.lineWidth   = 1.4;
-          ecx.beginPath();
-          ecx.moveTo(a.x, a.y);
-          ecx.lineTo(a.x + (b.x - a.x) * o.t, a.y + (b.y - a.y) * o.t);
-          ecx.stroke();
-        },
-      });
-    });
-    gsap.to(ecv, { opacity: 0, duration: 0.55, delay: segs.length * 0.13 + 0.5 });
-  }
 
   /* ======= COUNTERS ======= */
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#@%-+';
@@ -182,35 +157,53 @@
   }
 
   /* ======= MILESTONES ======= */
-  const BEATS    = { text: 0.12, cards: 0.40, stats: 0.58, energy: 0.68, breathe: 0.88 };
   const firedFwd = {};
 
-  function milestone (key, progress, fn) {
-    if (progress >= BEATS[key] && !firedFwd[key])         { firedFwd[key] = true; fn(); }
-    if (progress <  BEATS[key] - 0.04 && firedFwd[key])  { firedFwd[key] = false; }
+  function milestone (key, progress, threshold, fn) {
+    if (progress >= threshold && !firedFwd[key])        { firedFwd[key] = true; fn(); }
+    if (progress <  threshold - 0.04 && firedFwd[key]) { firedFwd[key] = false; }
   }
 
-  /* ======= ENTRY UPDATE (no overlay — particles only) ======= */
+  /* ======= ENTRY UPDATE (particles + text trigger) ======= */
   function onEntryUpdate (p) {
     drawParticles(p);
-    /* canvas fades once section is fully in view */
     gsap.set(cv, { opacity: Math.max(0, 1 - (p - 0.55) / 0.35) });
-  }
-
-  /* ======= BEAT UPDATE ======= */
-  function onBeatUpdate (progress) {
-    milestone('text',    progress, () => {
+    /* fire headline at 75% entry — section fills ~75% of viewport,
+       THE RANGE peeks in from below. Then lock + cascade. */
+    milestone('text', p, 0.75, () => {
       gsap.to([label, para], { opacity: 1, y: 0, duration: .45, stagger: .12, ease: 'power2.out' });
       fireHeadline();
+      postPinCascade();
     });
-    milestone('cards',   progress, glideCards);
-    milestone('stats',   progress, () =>
-      ctrs.forEach((c, i) => setTimeout(() => (c.type === 'num' ? fireNum : fireTxt)(c), i * 160))
-    );
-    milestone('energy',  progress, drawEnergyLines);
-    milestone('breathe', progress, () =>
+  }
+
+  /* ======= POST-PIN CASCADE — fires once pin releases ======= */
+  function postPinCascade () {
+    if (firedFwd['cascade']) return;
+    firedFwd['cascade'] = true;
+
+    const lenis = window.__lenis;
+
+    /*
+     * Cards + stats fire together at 0ms.
+     * Last txt counter (index 2, INDIA): 320ms stagger + 1340ms = 1660ms
+     * Add buffer → unlock at 1900ms
+     */
+    const UNLOCK = 1900;
+
+    if (lenis) lenis.stop();
+
+    /* cards and stats simultaneously */
+    glideCards();
+    ctrs.forEach((c, i) =>
+      setTimeout(() => (c.type === 'num' ? fireNum : fireTxt)(c), i * 160));
+
+    /* unlock + breathe after stats settle */
+    setTimeout(() => {
+      if (lenis) lenis.start();
       gsap.to(sec, { scale: 1.01, duration: .4, ease: 'sine.inOut',
-        onComplete: () => gsap.to(sec, { scale: 1, duration: .4, ease: 'sine.inOut' }) }));
+        onComplete: () => gsap.to(sec, { scale: 1, duration: .4, ease: 'sine.inOut' }) });
+    }, UNLOCK);
   }
 
   /* ======= INIT ======= */
@@ -219,32 +212,19 @@
   window.addEventListener('spektr:ready', () => {
     buildParticles();
 
-    /* entry — particles drift in as section scrolls into view */
+    /* entry — particles + headline fire + cascade lock all happen here */
     ScrollTrigger.create({
       trigger : sec,
       start   : 'top bottom',
       end     : 'top top',
       scrub   : true,
       onUpdate (self)  { onEntryUpdate(self.progress); },
-      onLeaveBack ()   { gsap.set(cv, { opacity: 1 }); cx.clearRect(0, 0, cv.width, cv.height); },
-    });
-
-    /* beat — pins section, fires all post-reveal actions */
-    ScrollTrigger.create({
-      trigger    : sec,
-      start      : 'top top',
-      end        : '+=110%',
-      pin        : true,
-      pinSpacing : true,
-      scrub      : true,
-      onUpdate (self) { onBeatUpdate(self.progress); },
       onLeaveBack () {
+        if (window.__lenis) window.__lenis.start();
         Object.keys(firedFwd).forEach(k => delete firedFwd[k]);
         gsap.set([label, para, h2, ...cards], { opacity: 0 });
         gsap.set(cards, { x: 0 });
         gsap.set(h2.querySelectorAll('.wdrop-inner'), { y: '-110%' });
-        gsap.set(ecv, { opacity: 0 });
-        ecx.clearRect(0, 0, ecv.width, ecv.height);
       },
     });
   });

@@ -32,44 +32,11 @@
     tag     : room.querySelector('.r-tag'),
   }));
 
-  /* ---- set initial state ---- */
-  els.forEach(({ bg, idx, cat, h3, para, specs, product, tag }) => {
-    if (bg)      gsap.set(bg,      { scale: 1.14, x: 60 });
-    if (idx)     gsap.set(idx,     { opacity: 0, y: 16 });
-    if (cat)     gsap.set(cat,     { opacity: 0, y: 12 });
-    if (h3)      gsap.set(h3,      { opacity: 0, y: 32 });
-    if (para)    gsap.set(para,    { opacity: 0, y: 18 });
-    if (specs.length) gsap.set(specs, { opacity: 0, y: 14 });
-    if (product) gsap.set(product, { opacity: 0, y: 50 });
-    if (tag)     gsap.set(tag,     { opacity: 0 });
-  });
+  /* ---- no initial gsap.set needed — CSS handles default hidden state ---- */
 
-  /* ---- reveal first room immediately on ready ---- */
-  function revealRoom (i, instant) {
-    const e = els[i];
-    const d = instant ? 0 : 1;
-    if (e.bg)   gsap.to(e.bg, { scale:1, x:0, duration: d*1.1, ease:'power3.out' });
-    if (e.idx)  gsap.to(e.idx,  { opacity:1, y:0, duration: d*.4, ease:'power2.out', delay: d*.0  });
-    if (e.cat)  gsap.to(e.cat,  { opacity:1, y:0, duration: d*.45, ease:'power2.out', delay: d*.07 });
-    if (e.h3)   gsap.to(e.h3,   { opacity:1, y:0, duration: d*.55, ease:'power3.out', delay: d*.14 });
-    if (e.para) gsap.to(e.para, { opacity:1, y:0, duration: d*.5,  ease:'power2.out', delay: d*.22 });
-    if (e.specs.length)
-      gsap.to(e.specs, { opacity:1, y:0, duration: d*.4, ease:'power2.out', stagger: d*.08, delay: d*.3 });
-    if (e.product) gsap.to(e.product, { opacity:1, y:0, duration: d*.7, ease:'expo.out', delay: d*.1 });
-    if (e.tag) gsap.to(e.tag,  { opacity:1, duration: d*.5, delay: d*.4 });
-  }
-
-  function hideRoom (i) {
-    const e = els[i];
-    if (e.bg)   gsap.to(e.bg, { scale: 0.94, x: -60, duration: .7, ease:'power2.in' });
-    if (e.idx)  gsap.to(e.idx,  { opacity:0, y:-10, duration:.3, ease:'power2.in' });
-    if (e.cat)  gsap.to(e.cat,  { opacity:0, y:-8,  duration:.3, ease:'power2.in' });
-    if (e.h3)   gsap.to(e.h3,   { opacity:0, y:-20, duration:.35, ease:'power2.in' });
-    if (e.para) gsap.to(e.para, { opacity:0, y:-10, duration:.3, ease:'power2.in' });
-    if (e.specs.length) gsap.to(e.specs, { opacity:0, y:-8, duration:.25, ease:'power2.in', stagger:.04 });
-    if (e.product) gsap.to(e.product, { opacity:0, y:-30, duration:.4, ease:'power2.in' });
-    if (e.tag) gsap.to(e.tag,  { opacity:0, duration:.2 });
-  }
+  /* ---- reveal / hide via CSS class toggle ---- */
+  function revealRoom (i) { rooms[i].classList.remove('room--out'); rooms[i].classList.add('room--active'); }
+  function hideRoom  (i) { rooms[i].classList.remove('room--active'); rooms[i].classList.add('room--out'); }
 
   /* ---- vertical wipe line ---- */
   const wipe = document.createElement('div');
@@ -85,7 +52,7 @@
 
   /* ---- track active room ---- */
   let activeIdx = 0;
-  revealRoom(0, true);
+  revealRoom(0);
 
   /* ---- bg parallax on scroll (separate ticker) ---- */
   let lastProg = 0;
@@ -94,13 +61,13 @@
     const newIdx  = Math.round(rawIdx);
     const localP  = rawIdx - Math.floor(rawIdx); // 0→1 within current room
 
-    /* bg depth + drift per room */
+    /* bg depth + drift per room — direct style write, no GSAP overhead */
     els.forEach((e, i) => {
       if (!e.bg) return;
-      const dist   = rawIdx - i;        /* -1 (left of screen) → 0 (centred) → 1 (right) */
-      const scale  = 1 + Math.abs(dist) * 0.09;
+      const dist  = rawIdx - i;
+      const scale = 1 + Math.abs(dist) * 0.09;
       const driftX = dist * 55;
-      gsap.set(e.bg, { scale, x: driftX });
+      e.bg.style.transform = `scale(${scale}) translateX(${driftX}px)`;
     });
 
     /* room change */
@@ -120,8 +87,8 @@
     ScrollTrigger.create({
       trigger : '.alcoves',
       start   : 'top top',
-      end     : () => '+=' + (track.scrollWidth - window.innerWidth - window.innerHeight),
-      scrub   : true,
+      end     : () => '+=' + (N - 1) * window.innerWidth,
+      scrub   : 0.35,
       invalidateOnRefresh: true,
       onUpdate (self) { onScroll(self.progress); },
     });

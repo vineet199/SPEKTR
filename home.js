@@ -41,7 +41,16 @@
       raf = requestAnimationFrame(draw);
     }
     addEventListener('resize', size); size();
-    if (!noMotion()) draw(); else { /* one static frame */ draw(); cancelAnimationFrame(raf); }
+    if (!noMotion()) {
+      /* pause RAF when hero is not in view */
+      const heroEl = document.querySelector('.hero');
+      if (heroEl && 'IntersectionObserver' in window) {
+        new IntersectionObserver(entries => {
+          if (entries[0].isIntersecting) { if (!raf) raf = requestAnimationFrame(draw); }
+          else { cancelAnimationFrame(raf); raf = null; }
+        }, { threshold: 0.01 }).observe(heroEl);
+      } else { draw(); }
+    } else { draw(); cancelAnimationFrame(raf); }
     window.addEventListener('spektr:ready', ()=>{ cv.style.opacity = 1; });
   }
 
@@ -57,29 +66,50 @@
   const pin = document.querySelector('.alcoves .pin');
   const track = document.querySelector('.alcoves .track');
   if (pin && track && hasST && !noMotion() && window.matchMedia('(min-width:821px)').matches) {
-    const rooms = track.querySelectorAll('.room');
-    const n = rooms.length;
-    const pbar = document.querySelector('.alcoves .progress .ptrack i');
-    const pnum = document.querySelector('.alcoves .progress .pnum');
+    const rooms   = [...track.querySelectorAll('.room')];
+    const stages  = rooms.map(r => r.querySelector('.r-stage')).filter(Boolean);
+    const n       = rooms.length;
+    const pbar    = document.querySelector('.alcoves .progress .ptrack i');
+    const pnum    = document.querySelector('.alcoves .progress .pnum');
+    if (pbar) { pbar.style.transformOrigin = 'left'; pbar.style.width = '100%'; }
+
+    /* z-index: each room sits above the previous */
+    rooms.forEach((r, i) => { r.style.zIndex = i + 1; });
+
+    const scrollDist = () => (n - 1) * window.innerWidth;
     let cur = 0;
-    gsap.to(track, {
-      x: () => -(track.scrollWidth - window.innerWidth),
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '.alcoves', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth - window.innerHeight),
-        scrub: 1, pin: '.alcoves .pin', pinType: 'transform', anticipatePin: 1, invalidateOnRefresh: true,
-        onUpdate: (self) => {
-          const prog = self.progress;
-          if (pbar) pbar.style.transform = `scaleX(${0.25 + prog*0.75})`, pbar.style.transformOrigin='left', pbar.style.width='100%';
-          const idx = Math.min(n-1, Math.floor(prog * n + 0.0001));
-          if (idx !== cur){ cur = idx; if (window.SpektrSound) window.SpektrSound.click(); if (pnum) pnum.textContent = String(idx+1).padStart(2,'0') + ' / 0' + n; }
+
+    ScrollTrigger.create({
+      trigger: '.alcoves', start: 'top top',
+      end: scrollDist,
+      scrub: 0.35, pin: '.alcoves .pin', pinType: 'transform',
+      anticipatePin: 1, invalidateOnRefresh: true,
+      onUpdate (self) {
+        const prog = self.progress;                  // 0 → 1
+        const rawIdx = prog * (n - 1);              // 0 → n-1
+
+        /* slide each room: room 0 stays put, room i slides in during segment i-1→i */
+        rooms.forEach((room, i) => {
+          if (i === 0) return;
+          const segProg = Math.max(0, Math.min(1, rawIdx - (i - 1)));  // 0→1 per segment
+          room.style.transform = `translateX(${(1 - segProg) * 100}%)`;
+        });
+
+        /* progress bar */
+        if (pbar) pbar.style.transform = `scaleX(${0.25 + prog * 0.75})`;
+
+        /* room counter */
+        const idx = Math.min(n - 1, Math.floor(rawIdx + 0.0001));
+        if (idx !== cur) {
+          cur = idx;
+          if (window.SpektrSound) window.SpektrSound.click();
+          if (pnum) pnum.textContent = String(idx + 1).padStart(2, '0') + ' / 0' + n;
         }
+
+        /* stage parallax */
+        const py = (40 - prog * 80).toFixed(2);
+        stages.forEach(s => { s.style.transform = `translateY(${py}px)`; });
       }
-    });
-    // subtle product parallax per room
-    rooms.forEach((room) => {
-      const prod = room.querySelector('.product');
-      if (prod) gsap.fromTo(prod, { y: 40 }, { y: -40, ease:'none', scrollTrigger: { trigger: '.alcoves', start:'top top', end:()=>'+='+(track.scrollWidth - innerWidth - innerHeight), scrub: 1 } });
     });
   }
 

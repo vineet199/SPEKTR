@@ -31,13 +31,24 @@
     if (idx !== activeIdx){ objs[activeIdx].classList.remove('active'); objs[idx].classList.add('active'); activeIdx = idx; }
   }
 
+  var rafId = null;
   function tick(){
     spin += 0.06;
     var tiltX = Math.sin(spin * 0.012) * 5 + (progress - 0.5) * 6;
     var rotY = Math.sin(spin * 0.008) * 10 + (progress - 0.5) * 18;
     stage.style.transform = 'translate(-50%,-50%) rotateX(' + tiltX.toFixed(2) + 'deg) rotateY(' + rotY.toFixed(2) + 'deg)';
     updateActive();
-    requestAnimationFrame(tick);
+    rafId = requestAnimationFrame(tick);
   }
-  tick();
+
+  /* pause when section is out of view */
+  var bg3dEl = document.querySelector('#bg3d');
+  if (bg3dEl && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { if (!rafId) rafId = requestAnimationFrame(tick); }
+      else { cancelAnimationFrame(rafId); rafId = null; }
+    }, { threshold: 0.01 }).observe(bg3dEl);
+  } else {
+    tick();
+  }
 })();

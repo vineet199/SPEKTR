@@ -1,0 +1,10 @@
+{
+  "name": "spektr-racing",
+  "version": "1.0.0",
+  "description": "SPEKTR Racing — premium motorcycle gear e-commerce frontend",
+  "private": true,
+  "scripts": {
+    "dev": "npx serve . -l 8000 --no-clipboard",
+    "start": "npm run dev"
+  }
+}
