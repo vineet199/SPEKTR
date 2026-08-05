@@ -74,8 +74,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 900; margin: 0; line
   font-family: var(--font-title); font-weight: 600; font-size: 11px; letter-spacing: var(--track-label); text-transform: uppercase;
   color: var(--spektr-grey-4); position: relative; padding: 6px 0;
 }
-.nav .links a::after { content:""; position:absolute; left:0; bottom:0; height:1px; width:0; background: var(--spektr-red); transition: width .3s var(--ease-out); }
-.nav .links a:hover { color: var(--spektr-white); }
+.nav .links a::after { content:""; position:absolute; left:0; bottom:0; height:1px; width:100%; background: var(--spektr-red); }
 .nav .links a:hover::after, .nav .links a.active::after { width: 100%; }
 .nav .links a.active { color: var(--spektr-white); }
 .nav-right { display: flex; align-items: center; gap: 22px; }
@@ -216,7 +215,7 @@ body.menu-open .mobile-menu .m-foot { opacity: 1; }
 @media (hover: hover) {
   .spektr-hl:hover {
     color: var(--spektr-red);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.4em;
     text-shadow:
       0 0 12px rgba(var(--red-glow), 0.85),
       0 0 32px rgba(var(--red-glow), 0.45),
@@ -226,24 +225,15 @@ body.menu-open .mobile-menu .m-foot { opacity: 1; }
   }
 }
 @keyframes spektr-flare {
-  0%  {
-    color: inherit;
-    letter-spacing: inherit;
-    text-shadow: none;
-  }
-  18% {
+  0%   { color: inherit; letter-spacing: inherit; text-shadow: none; }
+  18%  {
     color: var(--spektr-red);
-    letter-spacing: 0.14em;
-    text-shadow:
-      0 0 28px rgba(var(--red-glow), 1),
-      6px 0 0  rgba(0, 200, 230, 0.5),
-     -6px 0 0  rgba(var(--red-glow), 0.5);
+    letter-spacing: 0.52em;
+    text-shadow: 0 0 28px rgba(var(--red-glow),1), 6px 0 0 rgba(0,200,230,.5), -6px 0 0 rgba(var(--red-glow),.5);
   }
   100% {
     color: var(--spektr-red);
-    letter-spacing: 0.08em;
-    text-shadow:
-      0 0 12px rgba(var(--red-glow), 0.75),
-      0 0 28px rgba(var(--red-glow), 0.35);
+    letter-spacing: 0.4em;
+    text-shadow: 0 0 12px rgba(var(--red-glow),.75), 0 0 28px rgba(var(--red-glow),.35);
   }
 }

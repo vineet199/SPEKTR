@@ -9,7 +9,7 @@
   /* ---------- Lenis smooth scroll piped to GSAP ticker ---------- */
   let lenis = null;
   if (window.Lenis && !reduce) {
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true, lerp: 0.09 });
+    lenis = new Lenis({ duration: 0.7, smoothWheel: true, lerp: 0.14, wheelMultiplier: 1.2 });
     if (hasGSAP) {
       lenis.on('scroll', () => ScrollTrigger.update());
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -368,51 +368,45 @@
         s.life -= s.decayRate;
         if (s.life <= 0) {
           bolt = null;
-          // Chain immediately into next bolt if still hovered
-          if (hovered) spawn();
-          frameId = requestAnimationFrame(draw);
+          cx.clearRect(0, 0, W, H);
+          frameId = null;
+          // Rest 600-1400ms between bolts — RAF pauses completely during gap
+          if (hovered) setTimeout(spawn, 600 + Math.random() * 800);
           return;
         }
       }
 
-      // Squared falloff on fade — stays vivid longer then drops off softly
+      // Single-pass draw: one shadow blur for the whole bolt, no per-layer blur changes
       const alpha    = s.phase === 'fade' ? s.life * s.life : 1.0;
       const revealed = s.progress * s.totalLen;
 
-      // Layer 1 — diffuse dark red halo
+      cx.shadowColor = '#8B0000';
+      cx.shadowBlur  = 6;
+
+      // Layer 1 — diffuse halo
       cx.strokeStyle = `rgba(160,10,10,${(alpha * 0.50).toFixed(3)})`;
       cx.lineWidth   = 2.0;
-      cx.shadowColor = '#8B0000';
-      cx.shadowBlur  = 8;
       s.segs.forEach(seg => drawSeg(seg, revealed));
 
-      // Layer 2 — dark red core channel
-      cx.strokeStyle = `rgba(200,25,25,${(alpha * 0.78).toFixed(3)})`;
-      cx.lineWidth   = 0.8;
-      cx.shadowBlur  = 3;
+      // Layer 2 — core channel
+      cx.strokeStyle = `rgba(220,30,30,${(alpha * 0.78).toFixed(3)})`;
+      cx.lineWidth   = 0.7;
       s.segs.forEach(seg => drawSeg(seg, revealed));
 
-      // Layer 3 — pale blush filament at the very center
+      cx.shadowBlur  = 0;
+      // Layer 3 — filament (no blur needed)
       cx.strokeStyle = `rgba(230,120,120,${(alpha * 0.55).toFixed(3)})`;
       cx.lineWidth   = 0.3;
-      cx.shadowBlur  = 1;
       s.segs.forEach(seg => drawSeg(seg, revealed));
 
-      cx.shadowBlur = 0;
       frameId = requestAnimationFrame(draw);
     }
 
     window.addEventListener('spektr:ready', () => {
       const word = document.querySelector('.brand .word');
       if (!word) return;
-      word.addEventListener('mouseenter', () => {
-        hovered = true;
-        spawn();
-      });
-      word.addEventListener('mouseleave', () => {
-        hovered = false;
-        // Let the current bolt finish its fade naturally — don’t kill it
-      });
+      word.addEventListener('mouseenter', () => { hovered = true;  spawn(); });
+      word.addEventListener('mouseleave', () => { hovered = false; });
     });
   })();
 

@@ -67,7 +67,7 @@
       ease: 'none',
       scrollTrigger: {
         trigger: '.alcoves', start: 'top top', end: () => '+=' + (track.scrollWidth - window.innerWidth - window.innerHeight),
-        scrub: 0.4, pin: '.alcoves .pin', pinType: 'transform', anticipatePin: 1, invalidateOnRefresh: true,
+        scrub: 1, pin: '.alcoves .pin', pinType: 'transform', anticipatePin: 1, invalidateOnRefresh: true,
         onUpdate: (self) => {
           const prog = self.progress;
           if (pbar) pbar.style.transform = `scaleX(${0.25 + prog*0.75})`, pbar.style.transformOrigin='left', pbar.style.width='100%';
@@ -79,7 +79,7 @@
     // subtle product parallax per room
     rooms.forEach((room) => {
       const prod = room.querySelector('.product');
-      if (prod) gsap.fromTo(prod, { y: 40 }, { y: -40, ease:'none', scrollTrigger: { trigger: '.alcoves', start:'top top', end:()=>'+='+(track.scrollWidth - innerWidth - innerHeight), scrub: 0.4 } });
+      if (prod) gsap.fromTo(prod, { y: 40 }, { y: -40, ease:'none', scrollTrigger: { trigger: '.alcoves', start:'top top', end:()=>'+='+(track.scrollWidth - innerWidth - innerHeight), scrub: 1 } });
     });
   }
 
@@ -347,10 +347,10 @@
       ScrollTrigger.create({
         trigger    : '.hero',
         start      : 'top top',
-        end        : '+=100%',   // 1× viewport — alcoves reach top exactly at progress 1
+        end        : '+=100%',
         pin        : true,
         pinSpacing : false,
-        scrub      : 0.6,
+        scrub      : true,
         onEnter    ()     { painting = true; },
         onEnterBack()     { painting = true; },
         onUpdate   (self) { paint(self.progress); },
