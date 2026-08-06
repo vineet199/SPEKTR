@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="bg3d.css">
+<link rel="stylesheet" href="sections.css">
 </head>
 <body>
 
@@ -266,6 +267,49 @@
   </div>
 </section>
 
+<!-- ============ S3.7 — ANATOMY (exploded gear view) ============ -->
+<section class="anatomy" id="anatomy" data-screen-label="Anatomy">
+  <div class="anatomy-pin">
+    <div class="wrap anatomy-inner">
+      <div class="an-head">
+        <div class="label"><span class="dot">●</span> ANATOMY</div>
+        <h2>WHAT'S INSIDE<br>EVERY PIECE.</h2>
+        <p class="an-sub">Five layers, zero compromise. Scroll to pull it apart.</p>
+      </div>
+      <div class="an-stage">
+        <div class="an-wrap">
+          <div class="an-layers" id="anLayers" aria-label="Jacket layer breakdown">
+            <div class="an-layer" data-layer="5">
+              <div class="an-slab slab-outer"><span class="slab-tag">05</span><span class="slab-name">OUTER SHELL</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>OUTER SHELL</b><span>300D POLYESTER</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="4">
+              <div class="an-slab slab-aramid"><span class="slab-tag">04</span><span class="slab-name">ARAMID LINING</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>ARAMID LINING</b><span>KEVLAR&#174; WOVEN</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="3">
+              <div class="an-slab slab-armour"><span class="slab-tag">03</span><span class="slab-name">CE-1 ARMOUR</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>CE-1 ARMOUR</b><span>IMPACT ABSORB</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="2">
+              <div class="an-slab slab-insul"><span class="slab-tag">02</span><span class="slab-name">WIND BLOCKER</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>WIND BLOCKER</b><span>THERMO-LAYER</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="1">
+              <div class="an-slab slab-mesh"><span class="slab-tag">01</span><span class="slab-name">MESH LINER</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>MESH LINER</b><span>MOISTURE-WICK AG+</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="an-hud" aria-hidden="true">
+          <span class="an-counter">OUTER SHELL</span>
+          <span class="an-hint">SCROLL TO SEPARATE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ S3.5 — THE STANDARD ============ -->
 <section class="standard" id="standard" data-screen-label="The Standard">
   <div class="std-bg"><img class="bg-media" src="assets/home/standard.jpg" style="object-position:70% 45%" alt="" onerror="this.classList.add('failed')"></div>
@@ -280,6 +324,44 @@
       <div class="std reveal"><b>KEVLAR&reg;</b><span>Full aramid lining</span><p>Abrasion protection sleeve to hem, not just a logo on the chest.</p></div>
       <div class="std reveal"><b>INDIA</b><span>Bodies, not charts</span><p>Sizing, cut and armour placement built for the rider who actually exists here.</p></div>
       <div class="std reveal"><b>0%</b><span>Logo tax</span><p>Every rupee goes into materials and R&amp;D. None into a badge.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S3.8 — VELOCITY (animated stats) ============ -->
+<section class="velocity" id="velocity" data-screen-label="Velocity Stats">
+  <div class="vel-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="vel-head">
+      <div class="label reveal"><span class="dot">●</span> BY THE NUMBERS</div>
+      <h2 class="reveal">THE SPEC DOESN'T LIE.</h2>
+    </div>
+    <div class="vel-grid">
+      <div class="vel-stat reveal" data-val="38" data-suffix="g" data-label="BALACLAVA WEIGHT">
+        <div class="vs-num"><span class="vs-count">38</span><span class="vs-suf">g</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">BALACLAVA<br>WEIGHT</div>
+      </div>
+      <div class="vel-stat reveal" data-val="880" data-suffix="g" data-label="JACKET WEIGHT">
+        <div class="vs-num"><span class="vs-count">880</span><span class="vs-suf">g</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">JACKET<br>WEIGHT</div>
+      </div>
+      <div class="vel-stat reveal" data-val="CE-1" data-raw="true" data-label="ARMOUR STANDARD">
+        <div class="vs-num vs-num--static"><span class="vs-count">CE&#8209;1</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">ARMOUR<br>STANDARD</div>
+      </div>
+      <div class="vel-stat reveal" data-val="1000" data-suffix="+" data-label="KM TESTED">
+        <div class="vs-num"><span class="vs-count">1000</span><span class="vs-suf">+</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">KM<br>TESTED</div>
+      </div>
+      <div class="vel-stat reveal" data-val="0" data-suffix="%" data-label="LOGO TAX" data-down="true">
+        <div class="vs-num"><span class="vs-count">0</span><span class="vs-suf">%</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">LOGO<br>TAX</div>
+      </div>
     </div>
   </div>
 </section>
@@ -337,6 +419,83 @@
     </div>
   </div>
   <p class="proven-foot reveal">Join thousands of riders who refuse to ride in silence.</p>
+</section>
+
+<!-- ============ S5.5 — CIRCUIT (India riding routes) ============ -->
+<section class="circuit" id="circuit" data-screen-label="Circuit India">
+  <div class="wrap">
+    <div class="cir-head">
+      <div class="label reveal"><span class="dot">●</span> THE CIRCUIT</div>
+      <h2 class="reveal">BUILT FOR<br>THESE ROADS.</h2>
+      <p class="cir-sub reveal">Five legendary Indian routes. One kit recommendation each. Zero excuses.</p>
+    </div>
+    <div class="cir-body">
+
+      <!-- LEFT: SVG map -->
+      <div class="cir-map" aria-hidden="true">
+        <svg class="india-svg" viewBox="0 0 500 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- India outline -->
+          <path class="india-outline" d="M120,102 L124,54 L162,18 L255,10 L365,68 L458,148 L480,178 L458,220 L422,248 L388,265 L348,282 L312,324 L278,368 L248,418 L218,456 L198,494 L178,548 L158,525 L132,492 L110,458 L94,418 L82,378 L85,342 L92,308 L92,278 L48,268 L28,260 L55,242 L94,256 L105,230 L120,102 Z"/>
+
+          <!-- Route 1: Leh-Manali -->
+          <g class="route-group" data-route="leh-manali">
+            <path class="route-path" d="M173,88 C172,83 174,79 176,76 C178,72 180,64 180,56"/>
+            <circle class="route-dot" cx="173" cy="90" r="4.5"/>
+            <circle class="route-dot" cx="180" cy="54" r="4.5"/>
+            <text class="route-city" x="145" y="96">MANALI</text>
+            <text class="route-city" x="145" y="52">LEH</text>
+          </g>
+
+          <!-- Route 2: Spiti Valley -->
+          <g class="route-group" data-route="spiti">
+            <path class="route-path" d="M168,112 C172,106 175,100 178,95 C180,91 180,90 173,88"/>
+            <circle class="route-dot" cx="168" cy="114" r="4.5"/>
+            <text class="route-city" x="150" y="126">SHIMLA</text>
+          </g>
+
+          <!-- Route 3: Mumbai-Goa -->
+          <g class="route-group" data-route="mumbai-goa">
+            <path class="route-path" d="M91,345 C96,360 100,378 100,395 C100,405 102,412 106,418"/>
+            <circle class="route-dot" cx="91" cy="343" r="4.5"/>
+            <circle class="route-dot" cx="106" cy="420" r="4.5"/>
+            <text class="route-city" x="98" y="340">MUMBAI</text>
+            <text class="route-city" x="112" y="422">GOA</text>
+          </g>
+
+          <!-- Route 4: Coorg Loop -->
+          <g class="route-group" data-route="coorg">
+            <path class="route-path" d="M178,456 C170,462 162,466 152,466 C156,460 162,456 178,456"/>
+            <circle class="route-dot" cx="180" cy="455" r="4.5"/>
+            <text class="route-city" x="186" y="454">BLR</text>
+          </g>
+
+          <!-- Route 5: ECR -->
+          <g class="route-group" data-route="ecr">
+            <path class="route-path" d="M218,456 C216,464 214,472 212,480"/>
+            <circle class="route-dot" cx="218" cy="454" r="4.5"/>
+            <circle class="route-dot" cx="212" cy="482" r="4.5"/>
+            <text class="route-city" x="224" y="452">CHENNAI</text>
+            <text class="route-city" x="218" y="486">PONDY</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- RIGHT: route list + detail -->
+      <div class="cir-panel">
+        <div class="cir-routes" role="list">
+          <button class="cir-route" data-route="leh-manali" role="listitem"><span class="cr-num">01</span><div class="cr-info"><b>LEH-MANALI HIGHWAY</b><span>HIGH ALTITUDE — 490 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="spiti" role="listitem"><span class="cr-num">02</span><div class="cr-info"><b>SPITI VALLEY LOOP</b><span>MOUNTAIN PASS — 320 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="mumbai-goa" role="listitem"><span class="cr-num">03</span><div class="cr-info"><b>MUMBAI–GOA COASTAL</b><span>NH66 COAST — 590 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="coorg" role="listitem"><span class="cr-num">04</span><div class="cr-info"><b>COORG LOOP</b><span>GHATS &amp; HILLS — 280 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="ecr" role="listitem"><span class="cr-num">05</span><div class="cr-info"><b>ECR COASTAL STRIP</b><span>COASTAL — 170 KM</span></div><span class="cr-arr">→</span></button>
+        </div>
+        <div class="cir-detail" aria-live="polite">
+          <div id="cdInner" class="cd-inner"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ============ S6 — IN THE WILD ============ -->
@@ -756,5 +915,6 @@
   window.addEventListener('load', function(){ setTimeout(function(){ ScrollTrigger.refresh(); }, 200); });
 })();
 </script>
+<script src="sections.js"></script>
 </body>
 </html>
