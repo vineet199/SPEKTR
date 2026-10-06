@@ -12,6 +12,13 @@
 <link rel="stylesheet" href="base.css">
 <link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="bg3d.css">
+<link rel="stylesheet" href="sections.css">
+<link rel="stylesheet" href="cinematic-core.css">
+<link rel="stylesheet" href="forge.css">
+<link rel="stylesheet" href="weather.css">
+<link rel="stylesheet" href="night.css">
+<link rel="stylesheet" href="redline.css">
+<link rel="stylesheet" href="droptest.css">
 </head>
 <body>
 
@@ -266,6 +273,49 @@
   </div>
 </section>
 
+<!-- ============ S3.7 — ANATOMY (exploded gear view) ============ -->
+<section class="anatomy" id="anatomy" data-screen-label="Anatomy">
+  <div class="anatomy-pin">
+    <div class="wrap anatomy-inner">
+      <div class="an-head">
+        <div class="label"><span class="dot">●</span> ANATOMY</div>
+        <h2>WHAT'S INSIDE<br>EVERY PIECE.</h2>
+        <p class="an-sub">Five layers, zero compromise. Scroll to pull it apart.</p>
+      </div>
+      <div class="an-stage">
+        <div class="an-wrap">
+          <div class="an-layers" id="anLayers" aria-label="Jacket layer breakdown">
+            <div class="an-layer" data-layer="5">
+              <div class="an-slab slab-outer"><span class="slab-tag">05</span><span class="slab-name">OUTER SHELL</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>OUTER SHELL</b><span>300D POLYESTER</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="4">
+              <div class="an-slab slab-aramid"><span class="slab-tag">04</span><span class="slab-name">ARAMID LINING</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>ARAMID LINING</b><span>KEVLAR&#174; WOVEN</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="3">
+              <div class="an-slab slab-armour"><span class="slab-tag">03</span><span class="slab-name">CE-1 ARMOUR</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>CE-1 ARMOUR</b><span>IMPACT ABSORB</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="2">
+              <div class="an-slab slab-insul"><span class="slab-tag">02</span><span class="slab-name">WIND BLOCKER</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>WIND BLOCKER</b><span>THERMO-LAYER</span></div></div>
+            </div>
+            <div class="an-layer" data-layer="1">
+              <div class="an-slab slab-mesh"><span class="slab-tag">01</span><span class="slab-name">MESH LINER</span></div>
+              <div class="an-lbl"><div class="aln-line"></div><div class="aln-text"><b>MESH LINER</b><span>MOISTURE-WICK AG+</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="an-hud" aria-hidden="true">
+          <span class="an-counter">OUTER SHELL</span>
+          <span class="an-hint">SCROLL TO SEPARATE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ S3.5 — THE STANDARD ============ -->
 <section class="standard" id="standard" data-screen-label="The Standard">
   <div class="std-bg"><img class="bg-media" src="assets/home/standard.jpg" style="object-position:70% 45%" alt="" onerror="this.classList.add('failed')"></div>
@@ -284,6 +334,44 @@
   </div>
 </section>
 
+<!-- ============ S3.8 — VELOCITY (animated stats) ============ -->
+<section class="velocity" id="velocity" data-screen-label="Velocity Stats">
+  <div class="vel-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="vel-head">
+      <div class="label reveal"><span class="dot">●</span> BY THE NUMBERS</div>
+      <h2 class="reveal">THE SPEC DOESN'T LIE.</h2>
+    </div>
+    <div class="vel-grid">
+      <div class="vel-stat reveal" data-val="38" data-suffix="g" data-label="BALACLAVA WEIGHT">
+        <div class="vs-num"><span class="vs-count">38</span><span class="vs-suf">g</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">BALACLAVA<br>WEIGHT</div>
+      </div>
+      <div class="vel-stat reveal" data-val="880" data-suffix="g" data-label="JACKET WEIGHT">
+        <div class="vs-num"><span class="vs-count">880</span><span class="vs-suf">g</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">JACKET<br>WEIGHT</div>
+      </div>
+      <div class="vel-stat reveal" data-val="CE-1" data-raw="true" data-label="ARMOUR STANDARD">
+        <div class="vs-num vs-num--static"><span class="vs-count">CE&#8209;1</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">ARMOUR<br>STANDARD</div>
+      </div>
+      <div class="vel-stat reveal" data-val="1000" data-suffix="+" data-label="KM TESTED">
+        <div class="vs-num"><span class="vs-count">1000</span><span class="vs-suf">+</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">KM<br>TESTED</div>
+      </div>
+      <div class="vel-stat reveal" data-val="0" data-suffix="%" data-label="LOGO TAX" data-down="true">
+        <div class="vs-num"><span class="vs-count">0</span><span class="vs-suf">%</span></div>
+        <div class="vs-bar"><i></i></div>
+        <div class="vs-label">LOGO<br>TAX</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ S4 — THE RANGE ============ -->
 <section class="range" id="range" data-screen-label="The Range">
   <div class="wrap">
@@ -296,6 +384,18 @@
   </div>
 </section>
 
+<!-- ============ S4.5 — NEURAL DIAMOND ============ -->
+<section class="neural-diamond" id="neural" data-screen-label="Neural">
+  <canvas class="nd-canvas" aria-hidden="true"></canvas>
+</section>
+
+<!-- ============ S4.6 — SPHERE GALLERY ============ -->
+<section class="sphere-gallery" id="gallery" data-screen-label="Gallery">
+  <div class="sg-label"><span>&#9679;</span> THE COLLECTION</div>
+  <canvas class="sg-canvas" aria-hidden="true"></canvas>
+  <div class="sg-hint">drag to explore &middot; scroll inside to rotate</div>
+</section>
+
 <!-- ============ S5 — WORN & PROVEN ============ -->
 <section class="proven" id="proven" data-screen-label="Worn and Proven">
   <div class="wrap">
@@ -304,12 +404,104 @@
       <h2 class="reveal">TESTIMONY<br>FROM THE SADDLE.</h2>
     </div>
   </div>
-  <div class="proven-rail reveal">
-    <div class="proven-track">
-      <!-- review cards injected below -->
+  <div class="proven-body">
+    <!-- LEFT: globe -->
+    <div class="globe-wrap reveal">
+      <div class="globe-scene">
+        <div class="globe-stage" id="globeStage"></div>
+      </div>
+    </div>
+    <!-- RIGHT: detail panel -->
+    <div class="proven-detail" id="provenDetail">
+      <p class="pd-idle">Hover any rider to read their full story.</p>
+      <div class="pd-review" id="pdReview" aria-live="polite">
+        <div class="pd-stars"></div>
+        <blockquote class="pd-body"></blockquote>
+        <div class="pd-by">
+          <b class="pd-name"></b>
+          <span class="pd-tag"></span>
+        </div>
+      </div>
     </div>
   </div>
   <p class="proven-foot reveal">Join thousands of riders who refuse to ride in silence.</p>
+</section>
+
+<!-- ============ S5.5 — CIRCUIT (India riding routes) ============ -->
+<section class="circuit" id="circuit" data-screen-label="Circuit India">
+  <div class="wrap">
+    <div class="cir-head">
+      <div class="label reveal"><span class="dot">●</span> THE CIRCUIT</div>
+      <h2 class="reveal">BUILT FOR<br>THESE ROADS.</h2>
+      <p class="cir-sub reveal">Five legendary Indian routes. One kit recommendation each. Zero excuses.</p>
+    </div>
+    <div class="cir-body">
+
+      <!-- LEFT: SVG map -->
+      <div class="cir-map" aria-hidden="true">
+        <svg class="india-svg" viewBox="0 0 500 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- India outline -->
+          <path class="india-outline" d="M120,102 L124,54 L162,18 L255,10 L365,68 L458,148 L480,178 L458,220 L422,248 L388,265 L348,282 L312,324 L278,368 L248,418 L218,456 L198,494 L178,548 L158,525 L132,492 L110,458 L94,418 L82,378 L85,342 L92,308 L92,278 L48,268 L28,260 L55,242 L94,256 L105,230 L120,102 Z"/>
+
+          <!-- Route 1: Leh-Manali -->
+          <g class="route-group" data-route="leh-manali">
+            <path class="route-path" d="M173,88 C172,83 174,79 176,76 C178,72 180,64 180,56"/>
+            <circle class="route-dot" cx="173" cy="90" r="4.5"/>
+            <circle class="route-dot" cx="180" cy="54" r="4.5"/>
+            <text class="route-city" x="145" y="96">MANALI</text>
+            <text class="route-city" x="145" y="52">LEH</text>
+          </g>
+
+          <!-- Route 2: Spiti Valley -->
+          <g class="route-group" data-route="spiti">
+            <path class="route-path" d="M168,112 C172,106 175,100 178,95 C180,91 180,90 173,88"/>
+            <circle class="route-dot" cx="168" cy="114" r="4.5"/>
+            <text class="route-city" x="150" y="126">SHIMLA</text>
+          </g>
+
+          <!-- Route 3: Mumbai-Goa -->
+          <g class="route-group" data-route="mumbai-goa">
+            <path class="route-path" d="M91,345 C96,360 100,378 100,395 C100,405 102,412 106,418"/>
+            <circle class="route-dot" cx="91" cy="343" r="4.5"/>
+            <circle class="route-dot" cx="106" cy="420" r="4.5"/>
+            <text class="route-city" x="98" y="340">MUMBAI</text>
+            <text class="route-city" x="112" y="422">GOA</text>
+          </g>
+
+          <!-- Route 4: Coorg Loop -->
+          <g class="route-group" data-route="coorg">
+            <path class="route-path" d="M178,456 C170,462 162,466 152,466 C156,460 162,456 178,456"/>
+            <circle class="route-dot" cx="180" cy="455" r="4.5"/>
+            <text class="route-city" x="186" y="454">BLR</text>
+          </g>
+
+          <!-- Route 5: ECR -->
+          <g class="route-group" data-route="ecr">
+            <path class="route-path" d="M218,456 C216,464 214,472 212,480"/>
+            <circle class="route-dot" cx="218" cy="454" r="4.5"/>
+            <circle class="route-dot" cx="212" cy="482" r="4.5"/>
+            <text class="route-city" x="224" y="452">CHENNAI</text>
+            <text class="route-city" x="218" y="486">PONDY</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- RIGHT: route list + detail -->
+      <div class="cir-panel">
+        <div class="cir-routes" role="list">
+          <button class="cir-route" data-route="leh-manali" role="listitem"><span class="cr-num">01</span><div class="cr-info"><b>LEH-MANALI HIGHWAY</b><span>HIGH ALTITUDE — 490 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="spiti" role="listitem"><span class="cr-num">02</span><div class="cr-info"><b>SPITI VALLEY LOOP</b><span>MOUNTAIN PASS — 320 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="mumbai-goa" role="listitem"><span class="cr-num">03</span><div class="cr-info"><b>MUMBAI–GOA COASTAL</b><span>NH66 COAST — 590 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="coorg" role="listitem"><span class="cr-num">04</span><div class="cr-info"><b>COORG LOOP</b><span>GHATS &amp; HILLS — 280 KM</span></div><span class="cr-arr">→</span></button>
+          <button class="cir-route" data-route="ecr" role="listitem"><span class="cr-num">05</span><div class="cr-info"><b>ECR COASTAL STRIP</b><span>COASTAL — 170 KM</span></div><span class="cr-arr">→</span></button>
+        </div>
+        <div class="cir-detail" aria-live="polite">
+          <div id="cdInner" class="cd-inner"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- ============ S6 — IN THE WILD ============ -->
@@ -324,6 +516,176 @@
     <div class="reels">
       <!-- reel template repeated; data filled below -->
     </div>
+  </div>
+</section>
+
+<!-- ============ S6.1 — THE FORGE (materials origin story) ============ -->
+<section class="forge" id="forge" data-screen-label="The Forge">
+  <div class="wrap">
+    <div class="forge-head">
+      <div class="label reveal"><span class="dot">●</span> THE FORGE</div>
+      <h2 class="reveal" data-split>FOUR STAGES.<br>ZERO SHORTCUTS.</h2>
+      <p class="forge-sub reveal">Every piece of SPEKTR gear goes through the same uncompromising build — scroll to walk the line.</p>
+    </div>
+    <div class="forge-stage">
+      <div class="forge-stage-inner">
+      <canvas class="forge-embers" aria-hidden="true"></canvas>
+      <div class="forge-frame is-active" data-stage="0">
+        <img class="forge-media" src="assets/products/riding-jeans/black-detail.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">01</span><span class="fc-txt">RAW ARAMID FIBER<small>Sourced, graded, and spun into high-tenacity yarn.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="1">
+        <img class="forge-media" src="assets/products/riding-cargo/black-detail.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">02</span><span class="fc-txt">WOVEN &amp; CUT<small>Panels laid and cut to pattern — zero fabric waste.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="2">
+        <img class="forge-media" src="assets/products/riding-zipper-hoodie/red-lining.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">03</span><span class="fc-txt">STITCHED SHELL<small>Reinforced double-stitched seams, tested to fail-safe.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="3">
+        <img class="forge-media" src="assets/products/riding-zipper-hoodie/red-front.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">04</span><span class="fc-txt">FINISHED GEAR<small>Inspected, boxed, and ready to ride.</small></span></div>
+      </div>
+      <div class="forge-ghost" aria-hidden="true">01</div>
+      <div class="forge-heat-grade" aria-hidden="true"></div>
+      <div class="cine-flash" aria-hidden="true"></div>
+      </div>
+      <div class="forge-rail">
+        <div class="forge-dots">
+          <span class="fd is-active">01</span>
+          <span class="fd">02</span>
+          <span class="fd">03</span>
+          <span class="fd">04</span>
+        </div>
+        <div class="forge-rail-track"><div class="forge-rail-fill"></div><div class="forge-rail-dot"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.2 — WEATHER LAB (environment torture test) ============ -->
+<section class="weather" id="weather" data-screen-label="Weather Lab">
+  <div class="wrap">
+    <div class="weather-head">
+      <div class="label reveal"><span class="dot">●</span> WEATHER LAB</div>
+      <h2 class="reveal" data-split>TESTED IN EVERY<br>CONDITION THAT BITES.</h2>
+    </div>
+    <div class="wthr-stage">
+      <div class="wthr-stage-inner">
+      <img class="wthr-media" src="assets/products/basic-hoodie/red-front.png" alt="" onerror="this.classList.add('failed')">
+      <canvas class="wthr-canvas" aria-hidden="true"></canvas>
+      <div class="wthr-shimmer" aria-hidden="true"></div>
+      <div class="wthr-fog" aria-hidden="true"></div>
+      <div class="wthr-frost-creep" aria-hidden="true"></div>
+      <div class="wthr-vignette" aria-hidden="true"></div>
+      <div class="wthr-lightning" aria-hidden="true"></div>
+      </div>
+      <div class="wthr-hud">
+        <div class="wthr-cond">MONSOON DOWNPOUR</div>
+        <div class="wthr-row wthr-temp">TEMP <b>24°C</b></div>
+        <div class="wthr-row wthr-hum">HUMIDITY <b>96% RH</b></div>
+      </div>
+      <div class="wthr-gauge">
+        <svg viewBox="0 0 96 56" aria-hidden="true">
+          <path class="g-track" d="M6 50 A42 42 0 0 1 90 50"/>
+          <path class="g-fill" d="M6 50 A42 42 0 0 1 90 50" stroke-dasharray="132" stroke-dashoffset="132"/>
+          <line class="g-needle" x1="48" y1="48" x2="48" y2="12" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="wthr-gauge-label">TEMP</div>
+      </div>
+      <div class="wthr-meter"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.3 — NIGHT PROTOCOL (visibility / reflective tech) ============ -->
+<section class="night" id="night" data-screen-label="Night Protocol">
+  <div class="night-pin">
+    <img class="night-bg" src="assets/home/hero-night-track.jpg" alt="" onerror="this.classList.add('failed')">
+    <div class="night-bokeh" aria-hidden="true"></div>
+    <div class="night-shade" aria-hidden="true"></div>
+    <div class="night-sweep" aria-hidden="true"></div>
+    <div class="night-sweep2" aria-hidden="true"></div>
+    <div class="night-sweep3" aria-hidden="true"></div>
+    <div class="night-flare night-flare-1" aria-hidden="true"></div>
+    <div class="night-flare night-flare-2" aria-hidden="true"></div>
+    <div class="night-flare night-flare-3" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-vignette" aria-hidden="true"></div>
+    <div class="wrap night-wrap">
+      <div class="night-head">
+        <div class="label reveal"><span class="dot">●</span> NIGHT PROTOCOL</div>
+        <h2 class="reveal" data-split>SEEN FIRST.<br>HIT LAST.</h2>
+        <p class="night-sub reveal">3M-grade reflective piping, engineered to catch headlights from 150m out. Invisible by day. Impossible to miss by night.</p>
+        <div class="night-hud">
+          <span>REFLECTIVE PIPING — <b>STANDBY</b></span>
+          <span class="night-hud-extra">VISIBILITY <b>+0M</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="night-piping" aria-hidden="true">
+      <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 20 L40 180 L110 220 L110 380"/>
+        <path d="M260 40 L260 160 L190 200 L190 380"/>
+        <path d="M110 220 L190 200"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.4 — REDLINE (sound-reactive rev-counter) ============ -->
+<section class="redline" id="redline" data-screen-label="Redline">
+  <div class="redline-pin">
+    <div class="redline-streaks" aria-hidden="true"></div>
+    <div class="redline-vignette" aria-hidden="true"></div>
+    <div class="cine-flash" aria-hidden="true"></div>
+    <div class="wrap redline-wrap">
+      <div class="redline-head">
+        <div class="label reveal"><span class="dot">●</span> REDLINE</div>
+        <h2 class="reveal" data-split>BUILT TO RUN<br>PAST THE LIMIT.</h2>
+        <p class="redline-sub reveal">Every seam is stress-rated to the same redline our riders push their bikes to. Scroll to rev it.</p>
+      </div>
+      <div class="redline-stage">
+        <canvas class="redline-wave" aria-hidden="true"></canvas>
+        <div class="redline-readout">
+          <div class="rl-gauge">
+            <svg viewBox="0 0 130 76" aria-hidden="true">
+              <path class="g-track" d="M8 68 A57 57 0 0 1 122 68"/>
+              <path class="g-zone-red" d="M96 20 A57 57 0 0 1 122 68"/>
+              <line class="g-needle" x1="65" y1="65" x2="65" y2="16" stroke="#fff" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <div class="rl-rpm">00000<span>RPM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.5 — THE DROP TEST (impact / G-force crash test) ============ -->
+<section class="droptest" id="droptest" data-screen-label="The Drop Test">
+  <div class="droptest-pin">
+    <div class="dt-rig" aria-hidden="true">
+      <div class="dt-cable"></div>
+      <div class="dt-item"><img src="assets/products/riding-cargo/black-front.png" alt="" onerror="this.classList.add('failed')"></div>
+    </div>
+    <div class="dt-deck" aria-hidden="true"></div>
+    <canvas class="dt-debris" aria-hidden="true"></canvas>
+    <div class="dt-shockwave" aria-hidden="true"></div>
+    <div class="droptest-wrap wrap">
+      <div class="dt-copy">
+        <div class="label reveal"><span class="dot">●</span> THE DROP TEST</div>
+        <h2 class="reveal" data-split>WE DROP IT<br>SO YOU DON'T.</h2>
+        <p class="dt-sub reveal">Every armour panel is impact-tested to CE-1 standard before it ships. Scroll to watch one hit the deck.</p>
+        <div class="dt-readout">
+          <div class="dt-gforce">0.0<span>G PEAK</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dt-stamp">PASSED</div>
+    <div class="dt-progress"><i></i></div>
   </div>
 </section>
 
@@ -477,28 +839,202 @@
 })();
 </script>
 <script>
-/* build the WORN & PROVEN review rail */
-(function(){
+/* ============ TESTIMONY GLOBE ============ */
+(function () {
   const reviews = [
-    {body:"The moment I pulled on the jacket, I knew this wasn't off-the-shelf gear. The leather has this density to it — it doesn't creak, it doesn't feel stiff. It actually feels like it was made specifically for my body. Nothing I've worn before comes close to this quality at this price point.", name:"ARJUN M.", tag:"Verified Rider, Pune"},
-    {body:"Everything about it screams premium — from the packaging to the zip pulls to the stitching along the collar. I've owned gear from three other brands and this is the first time I genuinely felt like I was opening something special. SPEKTR clearly gives a damn about the details.", name:"RIYA S.", tag:"Verified Rider, Mumbai"},
-    {body:"Wearing SPEKTR feels different. I can't fully explain it — but when I'm suited up, I ride better. I feel sharper. There's something about the way it looks and fits that just puts you in the right headspace. It's not just gear. It's a whole identity.", name:"KARTHIK V.", tag:"Verified Rider, Chennai"},
-    {body:"The design language is insane. Subtle but aggressive at the same time — the red contrast stitching, the clean lines on the suit. I've had strangers walk up to me at fuel stations asking where I got it from. On the road and off it, this thing turns heads.", name:"SAHIL D.", tag:"Verified Rider, Delhi"},
-    {body:"I took a low-speed spill on a twisty section outside Coorg last month. Got up, dusted off — not a scratch on me. The armour placement is exactly right and you don't feel weighed down by it. I ride knowing I'm protected. I won't ride without SPEKTR now.", name:"PRIYA N.", tag:"Verified Rider, Bangalore"},
-    {body:"I used to skip morning rides because dragging out full gear at 6am felt like too much effort. SPEKTR changed that. I'm out the door in minutes — jacket on, visor down, gone. It's light enough that I wore it through brunch after the ride. Finally, gear that fits my life.", name:"ROHAN K.", tag:"Verified Rider, Hyderabad"}
+    {body:"The moment I pulled on the jacket I knew this wasn't off-the-shelf gear. The leather has this density — it doesn't creak, doesn't feel stiff. Nothing I've worn before comes close.",                                name:"ARJUN M.",    tag:"Verified Rider, Pune"},
+    {body:"Everything about it screams premium — the packaging, zip pulls, collar stitching. First time I've genuinely felt like I was opening something special.",                                                          name:"RIYA S.",     tag:"Verified Rider, Mumbai"},
+    {body:"When I'm suited up I ride better. I feel sharper. It's not just gear. It's a whole identity.",                                                                                                                    name:"KARTHIK V.",  tag:"Verified Rider, Chennai"},
+    {body:"The design language is insane — subtle but aggressive. Red contrast stitching, clean lines. Strangers at fuel stations ask where I got it from.",                                                                name:"SAHIL D.",    tag:"Verified Rider, Delhi"},
+    {body:"Took a low-speed spill outside Coorg. Got up, not a scratch. The armour placement is exactly right. I won't ride without SPEKTR now.",                                                                           name:"PRIYA N.",    tag:"Verified Rider, Bangalore"},
+    {body:"I used to skip morning rides because full gear at 6am felt like too much. SPEKTR changed that. Jacket on, visor down, gone.",                                                                                     name:"ROHAN K.",    tag:"Verified Rider, Hyderabad"},
+    {body:"Colleagues thought my hoodie was a fashion jacket. Then I told them about the aramid lining and CE armour. Jaws dropped.",                                                                                        name:"VIKRAM S.",   tag:"Verified Rider, Ahmedabad"},
+    {body:"11 years of riding, every brand tried. SPEKTR is the first time I've felt genuinely protected without feeling like a billboard.",                                                                                 name:"DEEPA R.",    tag:"Verified Rider, Kochi"},
+    {body:"Ordered on Friday, wore through the ghats on Saturday. The fit, the protection, the look — absolutely dialled in.",                                                                                             name:"AAKASH T.",   tag:"Verified Rider, Nashik"},
+    {body:"The balaclava alone changed how I ride in winter. Lightweight, no bulk under the helmet, keeps the cold out.",                                                                                                    name:"MEERA V.",    tag:"Verified Rider, Shimla"},
+    {body:"Customer support replied within hours and sorted my sizing without drama. Gear AND service are premium. Rare combination.",                                                                                        name:"SURESH K.",   tag:"Verified Rider, Coimbatore"},
+    {body:"The base liner is the unsung hero of my kit. Zero seams, perfect temperature regulation, still sharp enough for a cafe stop.",                                                                                    name:"ANJALI P.",   tag:"Verified Rider, Jaipur"},
+    {body:"I ride Bangalore traffic every day. The SPEKTR hoodie handles the chaos and the coffee stop. It's the only jacket I reach for.",                                                                                 name:"RAHUL G.",    tag:"Verified Rider, Bangalore"},
+    {body:"Bought as a gift for my husband. He hasn't taken it off in three weeks. That's probably the best review I can give.",                                                                                             name:"SNEHA M.",    tag:"Verified Rider, Pune"},
+    {body:"The jeans look completely normal off the bike. Nobody knows there's Kevlar running the full length. That's exactly what I wanted.",                                                                               name:"TANVIR A.",   tag:"Verified Rider, Kolkata"},
+    {body:"I've crashed twice in this jacket. Both times I walked away fine. That's not a coincidence — that's engineering.",                                                                                               name:"KARTIK P.",   tag:"Verified Rider, Pune"},
+    {body:"The fit is incredible for Indian riders. Most brands feel designed for someone half a foot taller with a completely different build.",                                                                             name:"DIVYA L.",    tag:"Verified Rider, Mysore"},
+    {body:"Took it on a 10-day ride through Ladakh. Balaclava, liner, jacket — all three worked flawlessly across every temperature range.",                                                                               name:"MANISH T.",   tag:"Verified Rider, Delhi"},
+    {body:"The packaging alone feels like a premium product. But what's inside lives up to it. SPEKTR clearly cares about every touchpoint.",                                                                                name:"POOJA S.",    tag:"Verified Rider, Mumbai"},
+    {body:"My gear used to sit in the cupboard. SPEKTR is the first kit I actually look forward to putting on before a ride.",                                                                                               name:"ARVIND K.",   tag:"Verified Rider, Chennai"},
+    {body:"The riding jeans passed every vibe check on a 600km solo run. No chafing, no overheating, no regret.",                                                                                                           name:"LEELA M.",    tag:"Verified Rider, Coimbatore"},
+    {body:"Finally a brand that treats Indian riders as the primary customer and not an afterthought. SPEKTR gets it.",                                                                                                      name:"FARHAN Q.",   tag:"Verified Rider, Hyderabad"},
+    {body:"I wear the hoodie to work on Monday and to the track on Sunday. Same jacket. Zero compromises. That's engineering done right.",                                                                                   name:"NIKHIL R.",   tag:"Verified Rider, Goa"},
+    {body:"The zipper pulls, the stitching density, the armour pockets — every detail is considered. You can tell this was designed by people who actually ride.",                                                         name:"SHRUTI V.",   tag:"Verified Rider, Nagpur"},
+    {body:"Three months of daily commutes and weekend rides. Not a single quality issue. It only keeps getting better as it breaks in.",                                                                                     name:"AMAN B.",     tag:"Verified Rider, Chandigarh"},
+    {body:"The Kevlar lining doesn't add any bulk or restrict movement. You genuinely forget it's there — until you need it.",                                                                                             name:"KAVYA T.",    tag:"Verified Rider, Pune"},
+    {body:"Sizing was spot on from the chart. No returns, no exchanges. It just fit. That never happens with riding gear.",                                                                                                  name:"SIDDHARTH N.",tag:"Verified Rider, Lucknow"},
+    {body:"The hoodie has replaced every other jacket I own. My wife is furious. I have zero regrets.",                                                                                                                     name:"GIRISH M.",   tag:"Verified Rider, Bangalore"},
+    {body:"Wore it through monsoon season — the breathability is real. Never felt clammy, never felt exposed. Just right.",                                                                                                name:"NISHA K.",    tag:"Verified Rider, Kochi"},
+    {body:"SPEKTR is what happens when riders build gear for riders. Every spec decision makes sense when you're actually on the bike.",                                                                                     name:"DEVRAJ S.",   tag:"Verified Rider, Jaipur"},
+    {body:"Wore it through monsoon season — the breathability is real. Never felt clammy, never felt exposed. Just right.",                                                                                                name:"NISHA K.",    tag:"Verified Rider, Kochi"},
+    {body:"The hoodie has replaced every other jacket I own. My wife is furious. I have zero regrets.",                                                                                                                     name:"GIRISH M.",   tag:"Verified Rider, Bangalore"},
+    {body:"Sizing was spot on from the chart. No returns, no exchanges. It just fit. That never happens with riding gear.",                                                                                                  name:"SIDDHARTH N.",tag:"Verified Rider, Lucknow"},
+    {body:"The Kevlar lining doesn't add bulk or restrict movement. You genuinely forget it's there — until you need it.",                                                                                                 name:"KAVYA T.",    tag:"Verified Rider, Pune"},
+    {body:"Three months of daily commutes and weekend rides. Not a single quality issue. It only keeps getting better as it breaks in.",                                                                                     name:"AMAN B.",     tag:"Verified Rider, Chandigarh"}
   ];
-  const card = r => `
-    <article class="rev">
-      <div class="rev-stars">★★★★★</div>
-      <p class="rev-body">${r.body}</p>
-      <div class="rev-by"><b>${r.name}</b><span>— ${r.tag}</span></div>
-    </article>`;
-  const track = document.querySelector('.proven-track');
-  if (track){ const html = reviews.map(card).join(''); track.innerHTML = html + html; }
+
+  const stage  = document.getElementById('globeStage');
+  const pdBody = document.querySelector('.pd-body');
+  const pdName = document.querySelector('.pd-name');
+  const pdTag  = document.querySelector('.pd-tag');
+  const pdRev  = document.getElementById('pdReview');
+  const pdIdle = document.querySelector('.pd-idle');
+  if (!stage) return;
+
+  const isMobile = window.innerWidth < 700;
+  const R      = isMobile ? 130 : 200;
+  const GOLDEN = Math.PI * (3 - Math.sqrt(5));
+  const n      = reviews.length;
+  const cards  = [], thetas = [], phis = [];
+  // Per-card reveal alpha: 0 = hidden, 1 = fully formed
+  const cardAlpha = new Float32Array(n);
+
+  reviews.forEach((rev, i) => {
+    const y     = 1 - (i / (n - 1)) * 2;
+    const theta = Math.acos(Math.max(-1, Math.min(1, y)));  // pure Fibonacci
+    const phi   = GOLDEN * i;
+    thetas.push(theta); phis.push(phi);
+
+    const line = rev.body.length > 48 ? rev.body.slice(0, 48) + '...' : rev.body;
+    const card = document.createElement('article');
+    card.className = 'orb-card';
+    card.innerHTML =
+      '<div class="orb-stars"></div>' +
+      '<p class="orb-line">' + line + '</p>' +
+      '<div class="orb-name">' + rev.name + '</div>';
+    // Start invisible and scaled-to-zero at their final sphere position
+    card.style.opacity = '0';
+    card.style.transform =
+      'rotateY(' + phi + 'rad) rotateX(' + (theta - Math.PI / 2) + 'rad) translateZ(' + R + 'px) scale(0)';
+    stage.appendChild(card);
+    cards.push(card);
+
+    card.addEventListener('mouseenter', () => {
+      if (cardAlpha[i] < 0.85) return;   // ignore unformed cards
+      hoveredIdx = i;
+      pdBody.textContent = rev.body;
+      pdName.textContent = rev.name;
+      pdTag.textContent  = '\u2014 ' + rev.tag;
+      pdIdle.classList.add('pd-idle-hidden');
+      pdRev.classList.add('pd-active');
+    });
+    card.addEventListener('mouseleave', () => {
+      hoveredIdx = -1;
+      pdRev.classList.remove('pd-active');
+      pdIdle.classList.remove('pd-idle-hidden');
+    });
+  });
+
+  let angle = 0, hoveredIdx = -1;
+  let formed = false, looping = false;
+  const SPEED  = 0.0024;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Single render pass — updates every card's transform + opacity from current state
+  function render() {
+    cards.forEach((card, i) => {
+      const a = cardAlpha[i];
+      if (a <= 0) { card.style.opacity = '0'; return; }
+      const p   = phis[i] + angle;
+      const t   = thetas[i];
+      const wz  = Math.sin(t) * Math.cos(p);
+      const dep = (wz + 1) / 2;
+      const hot = hoveredIdx === i;
+      const sc  = hot ? Math.min(a, 1) * 1.18 : Math.min(a, 1);
+      card.style.transform =
+        'rotateY(' + p + 'rad) rotateX(' + (t - Math.PI / 2) + 'rad) translateZ(' + R + 'px) scale(' + sc.toFixed(3) + ')';
+      card.style.opacity = a < 1
+        ? a.toFixed(3)
+        : hot ? '1' : (hoveredIdx >= 0 ? (dep * 0.22).toFixed(3) : (0.18 + dep * 0.82).toFixed(3));
+      card.classList.toggle('orb-hot',   hot);
+      card.classList.toggle('orb-front', dep > 0.65 && a > 0.8);
+    });
+  }
+
+  // Free-spinning rAF loop — takes over once the globe is fully formed
+  function startLoop() {
+    if (looping) return;
+    looping = true;
+    (function loop() {
+      if (!formed) { looping = false; return; }
+      angle += hoveredIdx >= 0 ? SPEED * 0.06 : SPEED;
+      render();
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  function completeFormation() {
+    cardAlpha.fill(1);
+    formed = true;
+    render();
+    startLoop();
+  }
+
+  // Reduced-motion: skip scroll theatre, show everything immediately
+  if (reduce) { completeFormation(); return; }
+
+  // No GSAP? Fallback to instant reveal
+  if (!window.gsap || !window.ScrollTrigger) { completeFormation(); return; }
+
+  // Defer until AFTER home.js has pinned the alcoves and called ScrollTrigger.refresh()
+  // at spektr:ready+400ms — otherwise our trigger position is stale (pin spacer not yet added).
+  window.addEventListener('spektr:ready', function () {
+    setTimeout(function () {
+      gsap.registerPlugin(ScrollTrigger);
+
+      ScrollTrigger.create({
+        trigger: '.proven',
+        // Animation window: section rising from below viewport until its top hits viewport top.
+        // All cards finish forming exactly when the section fully fills the screen.
+        start:   'top bottom',
+        end:     'top top',
+        scrub:   0.8,
+        onUpdate: function (self) {
+          if (formed) return;
+          var p = self.progress;
+
+          // Globe rotates 1.5 full turns as the section rises into view
+          angle = p * Math.PI * 3;
+
+          // Cards cascade in across 0→85% of the range so the last card
+          // is fully visible before the section reaches the top of the viewport.
+          for (var i = 0; i < n; i++) {
+            var wStart = (i / (n - 1)) * 0.75;
+            var wEnd   = wStart + 0.18;   // wider window = smoother cascade
+            cardAlpha[i] = Math.min(1, Math.max(0, (p - wStart) / (wEnd - wStart)));
+          }
+
+          render();
+        },
+        onLeave: function () {
+          // Section fully in view and rising past — snap any stragglers
+          completeFormation();
+        },
+        onLeaveBack: function () {
+          // Section dropped back below viewport — reset
+          formed = false;
+          angle  = 0;
+          cardAlpha.fill(0);
+          render();
+        },
+      });
+    }, 550);
+  });
 })();
 </script>
+<script src="env.js"></script>
 <script src="core.js"></script>
 <script src="home.js"></script>
+<script src="standard-anim.js"></script>
+<script src="alcoves-anim.js"></script>
+<script src="neural-diamond.js"></script>
+<script src="sphere-gallery.js"></script>
 <script>
 /* ============ 360 INSPECTION — scroll-scrubbed image sequence ============ */
 (function(){
@@ -555,5 +1091,12 @@
   window.addEventListener('load', function(){ setTimeout(function(){ ScrollTrigger.refresh(); }, 200); });
 })();
 </script>
+<script src="sections.js"></script>
+<script src="cinematic-core.js"></script>
+<script src="forge.js"></script>
+<script src="weather.js"></script>
+<script src="night.js"></script>
+<script src="redline.js"></script>
+<script src="droptest.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@
   /* ---------- Lenis smooth scroll piped to GSAP ticker ---------- */
   let lenis = null;
   if (window.Lenis && !reduce) {
-    lenis = new Lenis({ duration: 1.1, smoothWheel: true, lerp: 0.09 });
+    lenis = new Lenis({ duration: 0.7, smoothWheel: true, lerp: 0.14, wheelMultiplier: 1.2 });
     if (hasGSAP) {
       lenis.on('scroll', () => ScrollTrigger.update());
       gsap.ticker.add((t) => lenis.raf(t * 1000));
@@ -44,19 +44,6 @@
     setTimeout(() => { if (!loader.classList.contains('done')) { clearInterval(tick); if(bar) bar.style.width='100%'; finish(); } }, 3200);
   } else {
     window.dispatchEvent(new Event('spektr:ready'));
-  }
-
-  /* ---------- Custom cursor ---------- */
-  if (window.matchMedia('(pointer:fine)').matches) {
-    const ring = document.createElement('div'); ring.className = 'cursor';
-    const dot = document.createElement('div'); dot.className = 'cursor-dot';
-    document.body.append(ring, dot);
-    let rx = innerWidth/2, ry = innerHeight/2, dx = rx, dy = ry;
-    addEventListener('mousemove', (e) => { dx = e.clientX; dy = e.clientY; dot.style.transform = `translate(${dx}px,${dy}px)`; });
-    (function loop(){ rx += (dx-rx)*0.18; ry += (dy-ry)*0.18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
-    const hot = 'a,button,.reel,.card,.tab,input,.btn,[data-hot]';
-    document.addEventListener('mouseover', (e)=>{ if (e.target.closest(hot)) ring.classList.add('hot'); });
-    document.addEventListener('mouseout', (e)=>{ if (e.target.closest(hot)) ring.classList.remove('hot'); });
   }
 
   /* ---------- Nav scroll state ---------- */
@@ -217,4 +204,210 @@
     else if (d.type === '__deactivate_edit_mode'){ const p=document.getElementById('tweaks'); if(p)p.classList.remove('open'); }
   });
   try { window.parent.postMessage({type:'__edit_mode_available'},'*'); } catch(e){}
+
+  /* ---------- SPEKTR hover highlight — wrap every text occurrence ---------- */
+  (function wrapSpektr () {
+    const SKIP = new Set(['SCRIPT','STYLE','NOSCRIPT','SVG','TEXTAREA','INPUT']);
+    const RE   = /SPEKTR/g;
+
+    function walk (node) {
+      if (node.nodeType === 3) {               // text node
+        if (!RE.test(node.textContent)) return;
+        RE.lastIndex = 0;
+        const text = node.textContent;
+        const frag = document.createDocumentFragment();
+        let last = 0, m;
+        RE.lastIndex = 0;
+        while ((m = RE.exec(text)) !== null) {
+          if (m.index > last)
+            frag.appendChild(document.createTextNode(text.slice(last, m.index)));
+          const sp = document.createElement('span');
+          sp.className   = 'spektr-hl';
+          sp.textContent = m[0];
+          frag.appendChild(sp);
+          last = RE.lastIndex;
+        }
+        if (last < text.length)
+          frag.appendChild(document.createTextNode(text.slice(last)));
+        node.parentNode.replaceChild(frag, node);
+      } else if (
+        node.nodeType === 1 &&
+        !SKIP.has(node.tagName) &&
+        !node.classList.contains('spektr-hl')
+      ) {
+        // snapshot children before walking (replaceChild shifts live list)
+        Array.from(node.childNodes).forEach(walk);
+      }
+    }
+
+    // Run after full DOM is painted so catalog-injected content is present
+    window.addEventListener('spektr:ready', () => walk(document.body));
+  })();
+
+  /* ---------- SPEKTR brand-word — diagonal letter-to-letter lightning ---------- */
+  (function spektrWordStrand () {
+    const cv = document.createElement('canvas');
+    cv.id    = 'spektr-strand';
+    cv.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+    document.body.appendChild(cv);
+    const cx = cv.getContext('2d');
+    let W = cv.width = innerWidth;
+    let H = cv.height = innerHeight;
+    window.addEventListener('resize', () => { W = cv.width = innerWidth; H = cv.height = innerHeight; }, { passive: true });
+
+    let bolt    = null;
+    let frameId = null;
+    let hovered = false;
+
+    // Midpoint displacement in both axes — makes it read as a jagged diagonal slash
+    function mkBolt (x1, y1, x2, y2, depth, segs) {
+      if (depth <= 0) { segs.push([x1, y1, x2, y2]); return; }
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      const mx  = (x1 + x2) / 2 + (Math.random() - 0.5) * len * 0.28;
+      const my  = (y1 + y2) / 2 + (Math.random() - 0.5) * len * 0.28;
+      mkBolt(x1, y1, mx, my, depth - 1, segs);
+      mkBolt(mx, my, x2, y2, depth - 1, segs);
+    }
+
+    // Use Range API to get real per-character bounding boxes — no DOM rewrite needed
+    function letterRects () {
+      const word = document.querySelector('.brand .word');
+      if (!word) return null;
+      // Descend into child nodes to find the raw text node
+      function findTextNode (node) {
+        for (const c of node.childNodes) {
+          if (c.nodeType === 3 && c.textContent.trim()) return c;
+          if (c.nodeType === 1) { const t = findTextNode(c); if (t) return t; }
+        }
+        return null;
+      }
+      const tn = findTextNode(word);
+      if (!tn) return null;
+      return tn.textContent.split('').map((_, i) => {
+        const range = document.createRange();
+        range.setStart(tn, i); range.setEnd(tn, i + 1);
+        return range.getBoundingClientRect();
+      });
+    }
+
+    function spawn () {
+      const rects = letterRects();
+      if (!rects || rects.length < 2) return;
+
+      // Pick two distinct letter indices
+      const iA = Math.floor(Math.random() * rects.length);
+      let iB;
+      do { iB = Math.floor(Math.random() * rects.length); } while (iB === iA);
+
+      const rA = rects[iA], rB = rects[iB];
+      // Origin: near the top of letter A, x jittered within the glyph
+      const x0 = rA.left + rA.width * (0.2 + Math.random() * 0.6);
+      const y0 = rA.top  + rA.height * (Math.random() * 0.25);
+      // Destination: near the bottom of letter B
+      const x1 = rB.left + rB.width * (0.2 + Math.random() * 0.6);
+      const y1 = rB.bottom - rB.height * (Math.random() * 0.25);
+
+      const rawSegs = [];
+      mkBolt(x0, y0, x1, y1, 4, rawSegs);
+
+      // Precompute cumulative path length for the progressive-reveal technique
+      let cum = 0;
+      const segs = rawSegs.map(([ax, ay, bx, by]) => {
+        const len = Math.hypot(bx - ax, by - ay);
+        const s = { ax, ay, bx, by, start: cum, end: cum + len };
+        cum += len;
+        return s;
+      });
+
+      bolt = {
+        segs,
+        totalLen:   cum,
+        phase:      'grow',
+        progress:   0,
+        life:       1.0,
+        growRate:   1 / (24 + Math.random() * 14), // ~24-38 frames to slash across
+        holdFrames: 4 + Math.floor(Math.random() * 5),
+        heldFrames: 0,
+        decayRate:  1 / (12 + Math.random() * 10), // ~12-22 frames to dissolve
+      };
+
+      if (!frameId) frameId = requestAnimationFrame(draw);
+    }
+
+    // Draw only the portion of each segment that falls within the revealed length
+    function drawSeg (seg, revealed) {
+      if (seg.start >= revealed) return;
+      cx.beginPath();
+      cx.moveTo(seg.ax, seg.ay);
+      if (seg.end <= revealed) {
+        cx.lineTo(seg.bx, seg.by);
+      } else {
+        const t = (revealed - seg.start) / (seg.end - seg.start);
+        cx.lineTo(seg.ax + (seg.bx - seg.ax) * t, seg.ay + (seg.by - seg.ay) * t);
+      }
+      cx.stroke();
+    }
+
+    function draw () {
+      cx.clearRect(0, 0, W, H);
+
+      if (!bolt) {
+        frameId = null;
+        return;
+      }
+      const s = bolt;
+
+      // Phase state machine
+      if (s.phase === 'grow') {
+        s.progress = Math.min(1, s.progress + s.growRate);
+        if (s.progress >= 1) { s.phase = 'hold'; s.heldFrames = 0; }
+      } else if (s.phase === 'hold') {
+        s.heldFrames++;
+        if (s.heldFrames >= s.holdFrames) s.phase = 'fade';
+      } else {
+        s.life -= s.decayRate;
+        if (s.life <= 0) {
+          bolt = null;
+          cx.clearRect(0, 0, W, H);
+          frameId = null;
+          // Rest 600-1400ms between bolts — RAF pauses completely during gap
+          if (hovered) setTimeout(spawn, 600 + Math.random() * 800);
+          return;
+        }
+      }
+
+      // Single-pass draw: one shadow blur for the whole bolt, no per-layer blur changes
+      const alpha    = s.phase === 'fade' ? s.life * s.life : 1.0;
+      const revealed = s.progress * s.totalLen;
+
+      cx.shadowColor = '#8B0000';
+      cx.shadowBlur  = 6;
+
+      // Layer 1 — diffuse halo
+      cx.strokeStyle = `rgba(160,10,10,${(alpha * 0.50).toFixed(3)})`;
+      cx.lineWidth   = 2.0;
+      s.segs.forEach(seg => drawSeg(seg, revealed));
+
+      // Layer 2 — core channel
+      cx.strokeStyle = `rgba(220,30,30,${(alpha * 0.78).toFixed(3)})`;
+      cx.lineWidth   = 0.7;
+      s.segs.forEach(seg => drawSeg(seg, revealed));
+
+      cx.shadowBlur  = 0;
+      // Layer 3 — filament (no blur needed)
+      cx.strokeStyle = `rgba(230,120,120,${(alpha * 0.55).toFixed(3)})`;
+      cx.lineWidth   = 0.3;
+      s.segs.forEach(seg => drawSeg(seg, revealed));
+
+      frameId = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('spektr:ready', () => {
+      const word = document.querySelector('.brand .word');
+      if (!word) return;
+      word.addEventListener('mouseenter', () => { hovered = true;  spawn(); });
+      word.addEventListener('mouseleave', () => { hovered = false; });
+    });
+  })();
+
 })();

@@ -1,0 +1,89 @@
+# ============================================================
+# SPEKTR RACING — Validate & Deploy to GitHub Pages
+# ============================================================
+# Pure static HTML/CSS/JS site, no build step required.
+#
+#   validate  → fast sanity checks (JS syntax, HTML/CSS balance, dead links)
+#   deploy    → only runs if validate passes, and only on a push
+#               (not on pull_request) so PRs get checked without
+#               accidentally publishing a preview build.
+#
+# Triggers on push to main + vskamath/feat, on PRs into main, or
+# manually via the "Run workflow" button in the Actions tab.
+name: Validate & Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - vskamath/feat
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: {}
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Check JS syntax (all .js files)
+        run: |
+          set -e
+          fail=0
+          for f in $(find . -name '*.js' -not -path './.git/*'); do
+            if ! node --check "$f"; then
+              echo "::error file=$f::JavaScript syntax error"
+              fail=1
+            fi
+          done
+          exit $fail
+
+      - name: Check CSS brace balance
+        run: python3 .github/scripts/check_css_braces.py
+
+      - name: Check HTML tag balance
+        run: python3 .github/scripts/check_html_tags.py
+
+      - name: Check for dead local asset links
+        run: python3 .github/scripts/check_dead_links.py
+
+  deploy:
+    needs: validate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Ship the whole repo as-is — it's a static site, no build output dir.
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

@@ -57,7 +57,7 @@ body.co { background: #0d0d0d; padding-top: 0; }
 .fld { position: relative; margin-bottom: 26px; }
 .fld input, .fld select { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--spektr-grey-2);
   color: var(--spektr-white); font-family: var(--font-body); font-size: 16px; padding: 14px 2px 10px; outline: none; transition: border-color .25s; border-radius: 0; }
-.fld select { color: var(--spektr-grey-4); cursor: none; }
+.fld select { color: var(--spektr-grey-4); }
 .fld input::placeholder { color: transparent; }
 .fld label { position: absolute; left: 2px; top: 14px; color: var(--spektr-grey-3); font-size: 16px; pointer-events: none; transition: all .22s var(--ease-out); }
 .fld input:focus ~ label, .fld input:not(:placeholder-shown) ~ label, .fld.filled label { top: -10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--spektr-grey-4); }
@@ -71,7 +71,7 @@ body.co { background: #0d0d0d; padding-top: 0; }
 @media (max-width: 520px){ .row2, .row3 { grid-template-columns: 1fr; } }
 
 /* delivery / payment radio cards */
-.opt-card { display: flex; align-items: center; gap: 16px; border: 1px solid var(--spektr-grey-2); border-radius: 6px; padding: 18px 20px; margin-bottom: 12px; cursor: none; transition: border-color .2s, background .2s; }
+.opt-card { display: flex; align-items: center; gap: 16px; border: 1px solid var(--spektr-grey-2); border-radius: 6px; padding: 18px 20px; margin-bottom: 12px; transition: border-color .2s, background .2s; }
 .opt-card:hover { border-color: var(--spektr-grey-4); }
 .opt-card.sel { border-color: var(--spektr-red); background: rgba(var(--red-glow),.05); }
 .opt-card .radio { width: 18px; height: 18px; border-radius: 50%; border: 1px solid var(--spektr-grey-3); flex: 0 0 auto; position: relative; transition: border-color .2s; }

@@ -2,7 +2,8 @@
    SPEKTR RACING — BASE / SHARED SHELL
    ============================================================ */
 
-html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; cursor: auto !important; }
+canvas { cursor: auto !important; }
 body {
   margin: 0;
   background: var(--spektr-black);
@@ -11,13 +12,11 @@ body {
   font-size: var(--fs-body);
   line-height: 1.7;
   overflow-x: hidden;
-  cursor: none;
 }
-@media (pointer: coarse) { body { cursor: auto; } }
 
 img { display: block; max-width: 100%; }
 a { color: inherit; text-decoration: none; }
-button { font-family: inherit; cursor: none; }
+button { font-family: inherit; }
 
 h1, h2, h3 { font-family: var(--font-display); font-weight: 900; margin: 0; line-height: 0.96; letter-spacing: var(--track-display); text-transform: uppercase; }
 
@@ -48,20 +47,6 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 900; margin: 0; line
 #loader .bar i { display: block; height: 100%; width: 0; background: var(--spektr-red); }
 #loader .pct { font-family: var(--font-mono); font-size: 11px; letter-spacing: var(--track-label); color: var(--spektr-grey-3); }
 
-/* ---------- Custom cursor ---------- */
-.cursor, .cursor-dot { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 1500; mix-blend-mode: difference; }
-.cursor {
-  width: 30px; height: 30px; margin: -15px 0 0 -15px;
-  border: 1px solid var(--spektr-white);
-  border-radius: 50%;
-  transition: width .25s var(--ease-out), height .25s var(--ease-out), margin .25s var(--ease-out), border-color .2s, background .2s;
-}
-.cursor::before, .cursor::after {
-  content:""; position:absolute; background: var(--spektr-white); opacity:.0;
-}
-.cursor.hot { width: 54px; height: 54px; margin:-27px 0 0 -27px; background: rgba(var(--red-glow), .15); border-color: var(--spektr-red); }
-.cursor-dot { width: 4px; height: 4px; margin: -2px 0 0 -2px; background: var(--spektr-red); border-radius: 50%; }
-@media (pointer: coarse) { .cursor, .cursor-dot { display: none; } }
 
 /* ---------- Grain + scanlines (global atmosphere) ---------- */
 .fx-grain, .fx-scan { position: fixed; inset: 0; pointer-events: none; z-index: 1200; }
@@ -89,8 +74,7 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 900; margin: 0; line
   font-family: var(--font-title); font-weight: 600; font-size: 11px; letter-spacing: var(--track-label); text-transform: uppercase;
   color: var(--spektr-grey-4); position: relative; padding: 6px 0;
 }
-.nav .links a::after { content:""; position:absolute; left:0; bottom:0; height:1px; width:0; background: var(--spektr-red); transition: width .3s var(--ease-out); }
-.nav .links a:hover { color: var(--spektr-white); }
+.nav .links a::after { content:""; position:absolute; left:0; bottom:0; height:1px; width:100%; background: var(--spektr-red); }
 .nav .links a:hover::after, .nav .links a.active::after { width: 100%; }
 .nav .links a.active { color: var(--spektr-white); }
 .nav-right { display: flex; align-items: center; gap: 22px; }
@@ -214,4 +198,42 @@ body.menu-open .mobile-menu .m-foot { opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1 !important; transform: none !important; }
   * { scroll-behavior: auto !important; }
+}
+
+/* ============================================================
+   SPEKTR HOVER HIGHLIGHT — site-wide, injected by core.js
+   ============================================================ */
+.spektr-hl {
+  display: inline;
+  position: relative;
+  cursor: default;
+  transition:
+    color          0.18s var(--ease-out),
+    text-shadow    0.22s var(--ease-out),
+    letter-spacing 0.24s var(--ease-out);
+}
+@media (hover: hover) {
+  .spektr-hl:hover {
+    color: var(--spektr-red);
+    letter-spacing: 0.4em;
+    text-shadow:
+      0 0 12px rgba(var(--red-glow), 0.85),
+      0 0 32px rgba(var(--red-glow), 0.45),
+       3px 0 0  rgba(0, 200, 230, 0.28),
+      -3px 0 0  rgba(var(--red-glow), 0.28);
+    animation: spektr-flare 0.38s var(--ease-out) forwards;
+  }
+}
+@keyframes spektr-flare {
+  0%   { color: inherit; letter-spacing: inherit; text-shadow: none; }
+  18%  {
+    color: var(--spektr-red);
+    letter-spacing: 0.52em;
+    text-shadow: 0 0 28px rgba(var(--red-glow),1), 6px 0 0 rgba(0,200,230,.5), -6px 0 0 rgba(var(--red-glow),.5);
+  }
+  100% {
+    color: var(--spektr-red);
+    letter-spacing: 0.4em;
+    text-shadow: 0 0 12px rgba(var(--red-glow),.75), 0 0 28px rgba(var(--red-glow),.35);
+  }
 }

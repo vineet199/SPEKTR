@@ -1,0 +1,184 @@
+/* ============================================================
+   THE FORGE — materials origin story (base layout + elaborate FX)
+   Base structural styles + the elaborate upgrade: ambient ember
+   particles, Ken Burns zoom/pan per stage, diagonal wipe
+   transitions, impact flash+shake+spark burst at every stage
+   boundary, a glowing travelling rail dot, a giant ghost
+   stage-number watermark, and staggered letter-reveal captions.
+   ============================================================ */
+.forge {
+  padding: var(--section-pad) 0;
+  border-top: 1px solid var(--spektr-grey-1);
+  background: var(--spektr-black);
+  position: relative;
+  overflow: hidden;
+}
+.forge-head { margin-bottom: 56px; }
+.forge-head .label { margin-bottom: 18px; }
+.forge-head h2 { font-size: var(--fs-section); line-height: .96; color: var(--spektr-white); margin: 0 0 14px; }
+.forge-sub { font-family: var(--font-body); font-size: 15px; color: var(--spektr-grey-4); max-width: 480px; }
+
+.forge-stage {
+  position: relative;
+  height: 560px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--spektr-grey-1);
+  isolation: isolate;
+}
+/* Shake FX must never land on .forge-stage itself: it's the GSAP
+   pinType:'transform' target, and a CSS animation's transform (even at
+   rest, via fill-mode:both) permanently overrides GSAP's own inline
+   transform once triggered, silently breaking the pin. Shake this inner
+   wrapper instead — see forge.js. */
+.forge-stage-inner { position: absolute; inset: 0; }
+.forge-frame {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  will-change: opacity;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: clip-path .9s cubic-bezier(.65,0,.35,1);
+}
+.forge-frame.is-active { opacity: 1; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+.forge-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(.15) brightness(.72) contrast(1.08);
+  transform: scale(1.12);
+  will-change: transform;
+}
+.forge-media.failed { background: linear-gradient(135deg, var(--spektr-grey-1), var(--spektr-grey-2)); }
+.forge-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,.82) 0%, rgba(0,0,0,.15) 45%, transparent 70%);
+}
+.forge-cap {
+  position: absolute;
+  left: 32px; right: 32px; bottom: 28px;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+}
+.fc-num {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--spektr-red);
+  line-height: .8;
+  flex-shrink: 0;
+}
+.fc-txt {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(18px, 2.4vw, 26px);
+  letter-spacing: .01em;
+  color: var(--spektr-white);
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+.fc-txt small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--spektr-grey-4);
+  margin-top: 6px;
+}
+.fc-txt .fc-word { display: inline-block; }
+.fc-txt .fc-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(70%);
+  animation: fc-char-in .5s cubic-bezier(.2,.8,.2,1) forwards;
+}
+@keyframes fc-char-in { to { opacity: 1; transform: translateY(0); } }
+
+.forge-rail {
+  position: absolute;
+  right: 24px; top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+.forge-rail-track {
+  position: relative;
+  width: 2px;
+  height: 140px;
+  background: rgba(255,255,255,.14);
+  margin: 8px 0;
+  overflow: visible;
+}
+.forge-rail-fill {
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  height: 0%;
+  background: var(--spektr-red);
+  transform-origin: top;
+}
+.forge-rail-dot {
+  position: absolute; left: 50%; top: 0;
+  width: 10px; height: 10px; margin-left: -5px; margin-top: -5px;
+  border-radius: 50%;
+  background: var(--spektr-red);
+  box-shadow: 0 0 0 3px rgba(215,43,43,.22), 0 0 14px 2px rgba(215,43,43,.85);
+  transition: top .1s linear;
+}
+.forge-dots { display: flex; flex-direction: column; gap: 40px; position: absolute; top: -4px; }
+.fd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--spektr-grey-4);
+  transition: color .25s;
+}
+.fd.is-active { color: var(--spektr-red); }
+
+.forge-embers { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.forge-ghost {
+  position: absolute;
+  left: 18px; bottom: -30px;
+  font-family: var(--font-title);
+  font-size: clamp(140px, 20vw, 260px);
+  font-weight: 800;
+  color: rgba(255,255,255,.05);
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+}
+.forge-heat-grade {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  mix-blend-mode: overlay; opacity: 0;
+  background: radial-gradient(ellipse at 70% 30%, rgba(255,120,40,.55), transparent 60%);
+  transition: opacity .4s linear;
+}
+@keyframes forge-kenburns {
+  0%   { transform: scale(1.12) translate(0, 0); }
+  100% { transform: scale(1.24) translate(-1.5%, -1.5%); }
+}
+.forge-frame.is-active .forge-media {
+  animation: forge-kenburns 5s ease-in-out infinite alternate;
+}
+
+@media (max-width: 820px) {
+  .forge-stage { height: 420px; }
+  .forge-frame { position: static; opacity: 1 !important; display: none; clip-path: none !important; transition: none; }
+  .forge-frame.is-active { display: block; }
+  .forge-media { transform: none; }
+  .forge-frame.is-active .forge-media { animation: none; }
+  .forge-rail { display: none; }
+  .fc-num { font-size: 30px; }
+  .forge-ghost { font-size: 90px; }
+  .forge-heat-grade { display: none; }
+}
