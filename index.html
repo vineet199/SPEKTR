@@ -13,6 +13,12 @@
 <link rel="stylesheet" href="home.css">
 <link rel="stylesheet" href="bg3d.css">
 <link rel="stylesheet" href="sections.css">
+<link rel="stylesheet" href="cinematic-core.css">
+<link rel="stylesheet" href="forge.css">
+<link rel="stylesheet" href="weather.css">
+<link rel="stylesheet" href="night.css">
+<link rel="stylesheet" href="redline.css">
+<link rel="stylesheet" href="droptest.css">
 </head>
 <body>
 
@@ -513,6 +519,176 @@
   </div>
 </section>
 
+<!-- ============ S6.1 — THE FORGE (materials origin story) ============ -->
+<section class="forge" id="forge" data-screen-label="The Forge">
+  <div class="wrap">
+    <div class="forge-head">
+      <div class="label reveal"><span class="dot">●</span> THE FORGE</div>
+      <h2 class="reveal" data-split>FOUR STAGES.<br>ZERO SHORTCUTS.</h2>
+      <p class="forge-sub reveal">Every piece of SPEKTR gear goes through the same uncompromising build — scroll to walk the line.</p>
+    </div>
+    <div class="forge-stage">
+      <div class="forge-stage-inner">
+      <canvas class="forge-embers" aria-hidden="true"></canvas>
+      <div class="forge-frame is-active" data-stage="0">
+        <img class="forge-media" src="assets/products/riding-jeans/black-detail.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">01</span><span class="fc-txt">RAW ARAMID FIBER<small>Sourced, graded, and spun into high-tenacity yarn.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="1">
+        <img class="forge-media" src="assets/products/riding-cargo/black-detail.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">02</span><span class="fc-txt">WOVEN &amp; CUT<small>Panels laid and cut to pattern — zero fabric waste.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="2">
+        <img class="forge-media" src="assets/products/riding-zipper-hoodie/red-lining.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">03</span><span class="fc-txt">STITCHED SHELL<small>Reinforced double-stitched seams, tested to fail-safe.</small></span></div>
+      </div>
+      <div class="forge-frame" data-stage="3">
+        <img class="forge-media" src="assets/products/riding-zipper-hoodie/red-front.png" alt="" onerror="this.classList.add('failed')">
+        <div class="forge-cap"><span class="fc-num">04</span><span class="fc-txt">FINISHED GEAR<small>Inspected, boxed, and ready to ride.</small></span></div>
+      </div>
+      <div class="forge-ghost" aria-hidden="true">01</div>
+      <div class="forge-heat-grade" aria-hidden="true"></div>
+      <div class="cine-flash" aria-hidden="true"></div>
+      </div>
+      <div class="forge-rail">
+        <div class="forge-dots">
+          <span class="fd is-active">01</span>
+          <span class="fd">02</span>
+          <span class="fd">03</span>
+          <span class="fd">04</span>
+        </div>
+        <div class="forge-rail-track"><div class="forge-rail-fill"></div><div class="forge-rail-dot"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.2 — WEATHER LAB (environment torture test) ============ -->
+<section class="weather" id="weather" data-screen-label="Weather Lab">
+  <div class="wrap">
+    <div class="weather-head">
+      <div class="label reveal"><span class="dot">●</span> WEATHER LAB</div>
+      <h2 class="reveal" data-split>TESTED IN EVERY<br>CONDITION THAT BITES.</h2>
+    </div>
+    <div class="wthr-stage">
+      <div class="wthr-stage-inner">
+      <img class="wthr-media" src="assets/products/basic-hoodie/red-front.png" alt="" onerror="this.classList.add('failed')">
+      <canvas class="wthr-canvas" aria-hidden="true"></canvas>
+      <div class="wthr-shimmer" aria-hidden="true"></div>
+      <div class="wthr-fog" aria-hidden="true"></div>
+      <div class="wthr-frost-creep" aria-hidden="true"></div>
+      <div class="wthr-vignette" aria-hidden="true"></div>
+      <div class="wthr-lightning" aria-hidden="true"></div>
+      </div>
+      <div class="wthr-hud">
+        <div class="wthr-cond">MONSOON DOWNPOUR</div>
+        <div class="wthr-row wthr-temp">TEMP <b>24°C</b></div>
+        <div class="wthr-row wthr-hum">HUMIDITY <b>96% RH</b></div>
+      </div>
+      <div class="wthr-gauge">
+        <svg viewBox="0 0 96 56" aria-hidden="true">
+          <path class="g-track" d="M6 50 A42 42 0 0 1 90 50"/>
+          <path class="g-fill" d="M6 50 A42 42 0 0 1 90 50" stroke-dasharray="132" stroke-dashoffset="132"/>
+          <line class="g-needle" x1="48" y1="48" x2="48" y2="12" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="wthr-gauge-label">TEMP</div>
+      </div>
+      <div class="wthr-meter"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.3 — NIGHT PROTOCOL (visibility / reflective tech) ============ -->
+<section class="night" id="night" data-screen-label="Night Protocol">
+  <div class="night-pin">
+    <img class="night-bg" src="assets/home/hero-night-track.jpg" alt="" onerror="this.classList.add('failed')">
+    <div class="night-bokeh" aria-hidden="true"></div>
+    <div class="night-shade" aria-hidden="true"></div>
+    <div class="night-sweep" aria-hidden="true"></div>
+    <div class="night-sweep2" aria-hidden="true"></div>
+    <div class="night-sweep3" aria-hidden="true"></div>
+    <div class="night-flare night-flare-1" aria-hidden="true"></div>
+    <div class="night-flare night-flare-2" aria-hidden="true"></div>
+    <div class="night-flare night-flare-3" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-streak" aria-hidden="true"></div>
+    <div class="night-vignette" aria-hidden="true"></div>
+    <div class="wrap night-wrap">
+      <div class="night-head">
+        <div class="label reveal"><span class="dot">●</span> NIGHT PROTOCOL</div>
+        <h2 class="reveal" data-split>SEEN FIRST.<br>HIT LAST.</h2>
+        <p class="night-sub reveal">3M-grade reflective piping, engineered to catch headlights from 150m out. Invisible by day. Impossible to miss by night.</p>
+        <div class="night-hud">
+          <span>REFLECTIVE PIPING — <b>STANDBY</b></span>
+          <span class="night-hud-extra">VISIBILITY <b>+0M</b></span>
+        </div>
+      </div>
+    </div>
+    <div class="night-piping" aria-hidden="true">
+      <svg viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 20 L40 180 L110 220 L110 380"/>
+        <path d="M260 40 L260 160 L190 200 L190 380"/>
+        <path d="M110 220 L190 200"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.4 — REDLINE (sound-reactive rev-counter) ============ -->
+<section class="redline" id="redline" data-screen-label="Redline">
+  <div class="redline-pin">
+    <div class="redline-streaks" aria-hidden="true"></div>
+    <div class="redline-vignette" aria-hidden="true"></div>
+    <div class="cine-flash" aria-hidden="true"></div>
+    <div class="wrap redline-wrap">
+      <div class="redline-head">
+        <div class="label reveal"><span class="dot">●</span> REDLINE</div>
+        <h2 class="reveal" data-split>BUILT TO RUN<br>PAST THE LIMIT.</h2>
+        <p class="redline-sub reveal">Every seam is stress-rated to the same redline our riders push their bikes to. Scroll to rev it.</p>
+      </div>
+      <div class="redline-stage">
+        <canvas class="redline-wave" aria-hidden="true"></canvas>
+        <div class="redline-readout">
+          <div class="rl-gauge">
+            <svg viewBox="0 0 130 76" aria-hidden="true">
+              <path class="g-track" d="M8 68 A57 57 0 0 1 122 68"/>
+              <path class="g-zone-red" d="M96 20 A57 57 0 0 1 122 68"/>
+              <line class="g-needle" x1="65" y1="65" x2="65" y2="16" stroke="#fff" stroke-width="2.4"/>
+            </svg>
+          </div>
+          <div class="rl-rpm">00000<span>RPM</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S6.5 — THE DROP TEST (impact / G-force crash test) ============ -->
+<section class="droptest" id="droptest" data-screen-label="The Drop Test">
+  <div class="droptest-pin">
+    <div class="dt-rig" aria-hidden="true">
+      <div class="dt-cable"></div>
+      <div class="dt-item"><img src="assets/products/riding-cargo/black-front.png" alt="" onerror="this.classList.add('failed')"></div>
+    </div>
+    <div class="dt-deck" aria-hidden="true"></div>
+    <canvas class="dt-debris" aria-hidden="true"></canvas>
+    <div class="dt-shockwave" aria-hidden="true"></div>
+    <div class="droptest-wrap wrap">
+      <div class="dt-copy">
+        <div class="label reveal"><span class="dot">●</span> THE DROP TEST</div>
+        <h2 class="reveal" data-split>WE DROP IT<br>SO YOU DON'T.</h2>
+        <p class="dt-sub reveal">Every armour panel is impact-tested to CE-1 standard before it ships. Scroll to watch one hit the deck.</p>
+        <div class="dt-readout">
+          <div class="dt-gforce">0.0<span>G PEAK</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="dt-stamp">PASSED</div>
+    <div class="dt-progress"><i></i></div>
+  </div>
+</section>
+
 <!-- ============ S7 — SPEAK TO THE PIT WALL ============ -->
 <section class="pitwall" id="contact" data-screen-label="Pit Wall Contact">
   <div class="wrap">
@@ -916,5 +1092,11 @@
 })();
 </script>
 <script src="sections.js"></script>
+<script src="cinematic-core.js"></script>
+<script src="forge.js"></script>
+<script src="weather.js"></script>
+<script src="night.js"></script>
+<script src="redline.js"></script>
+<script src="droptest.js"></script>
 </body>
 </html>

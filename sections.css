@@ -194,6 +194,11 @@
   .an-slab { flex: 0 0 200px; }
   .an-head h2 { font-size: clamp(28px, 9vw, 52px); }
   .an-sub { display: none; }
+  /* Label column (name + material spec) has no room next to a 200px slab on
+     narrow viewports — it wraps to multiple lines and busts the fixed-height
+     absolute layer slot, colliding with neighbouring layers. The slab itself
+     already shows the layer name, so just drop the redundant label here. */
+  .an-lbl { display: none; }
 }
 
 
